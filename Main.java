@@ -66,6 +66,8 @@ public class Main {
 
                     String senhaCadastro = Validador.validarSenha(scanner);
 
+                    String endereco = Validador.validarEndereco(scanner);
+
                     System.out.print("Tipo (1 - Motorista, 2 - Passageiro): ");
 
                     int tipo = scanner.nextInt();
@@ -74,14 +76,16 @@ public class Main {
                     Usuario novoUsuario = null;
 
                     if(tipo == 1) {
-
+                        String modeloVeiculo = Validador.validarModeloVeiculo(scanner);
                         novoUsuario = new Motorista(
                                 nome,
                                 emailCadastro,
                                 telefone,
-                                senhaCadastro
+                                senhaCadastro,
+                                endereco,
+                                modeloVeiculo
                         );
-                        novoUsuario.cadastrarUsuario(novoUsuario);
+                        
 
                     } else if(tipo == 2) {
 
@@ -89,10 +93,11 @@ public class Main {
                                 nome,
                                 emailCadastro,
                                 telefone,
-                                senhaCadastro
+                                senhaCadastro,
+                                endereco
                         );
-                        novoUsuario.cadastrarUsuario(novoUsuario);
-                        novoUsuario.listarUsuarios();
+                
+                        
                     } else {
 
                         System.out.println("Tipo inválido!");

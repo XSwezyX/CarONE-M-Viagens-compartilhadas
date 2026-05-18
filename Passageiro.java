@@ -6,10 +6,11 @@ public class Passageiro extends Usuario {
             String nome,
             String email,
             String telefone,
-            String senha
+            String senha,
+            String endereco
     ) {
 
-        super(nome, email, telefone, senha);
+        super(nome, email, telefone, senha, endereco);
     }
 
 }

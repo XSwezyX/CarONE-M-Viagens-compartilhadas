@@ -6,12 +6,14 @@ public abstract class Usuario {
     protected String email;
     protected String telefone;
     protected String senha;
+    protected String endereco;
 
     public Usuario(
             String nome,
             String email,
             String telefone,
-            String senha
+            String senha,
+            String endereco
     ) {
 
         
@@ -27,6 +29,9 @@ public abstract class Usuario {
         }
         if(senha != null && senha.length() >= 4) {
             this.senha = senha;
+        }
+        if(endereco != null && !endereco.isEmpty()) {
+            this.endereco = endereco;
         }
     }
 
@@ -45,9 +50,12 @@ public abstract class Usuario {
     public String getTelefone() {
         return telefone;
     }
+    public String getEndereco() {
+        return endereco;
+    }
 
-    public String getSenha() {
-        return senha;
+    public boolean verificarSenha(String tentativa) {
+        return this.senha.equals(tentativa);
     }
     // EXIBIR DADOS
 

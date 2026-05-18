@@ -89,4 +89,47 @@ public class Validador {
 
         return senha;
     }
+
+    public static String validarEndereco(Scanner scanner) {
+
+        String endereco;
+
+        do {
+
+            System.out.print("Endereço: ");
+            endereco = scanner.nextLine();
+
+            if(endereco != null && !endereco.isBlank() && endereco.length() >= 5) {
+
+                System.out.println(
+                        "Endereço inválido!"
+                );
+            }
+
+        } while(endereco.isBlank() || endereco.length() < 5);
+
+        return endereco;
+    }
+
+    public static String validarModeloVeiculo(Scanner scanner) {
+
+        String modelo;
+
+        do {
+
+            System.out.print("Modelo do veículo: ");
+            modelo = scanner.nextLine();
+
+            if(modelo.isBlank() || modelo.length() < 3) {
+
+                System.out.println(
+                        "Modelo de veículo inválido!"
+                );
+            }
+
+        } while(modelo.isBlank() || modelo.length() < 3);
+
+        return modelo;
+    }
+
 }

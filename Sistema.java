@@ -23,14 +23,17 @@ public class Sistema{
                 "João",
                 "joao@gmail.com",
                 "119996",
-                "1234"
+                "1234",
+                "Rua B",
+                "Fiat Uno"
         );
 
         Usuario u2 = new Passageiro(
                 "Maria",
                 "maria@gmail.com",
                 "118888",
-                "4567"
+                "4567",
+                "Rua A"
         );
 
         usuarios.add(u1);
@@ -50,12 +53,7 @@ public class Sistema{
     ) {
 
         for (Usuario u : usuarios) {
-
-            if (
-                u.getEmail().equals(email)
-                &&
-                u.getSenha().equals(senha)
-            ) {
+            if (u.getEmail().equals(email) && u.verificarSenha(senha)) {
 
                 return u;
             }
