@@ -1,62 +1,81 @@
-public class Usuario {
-    private String nome;
-    private String email;
-    private String senha;
-    private String telefone;
-    private String endereco;
+// Usuario.java
 
-    public Usuario(String nome, String email, String senha, String telefone, String endereco) {
+public class Usuario {
+
+    protected String nome;
+    protected String email;
+    protected String telefone;
+    protected String senha;
+
+    public Usuario(
+            String nome,
+            String email,
+            String telefone,
+            String senha
+    ) {
+
         this.nome = nome;
         this.email = email;
-        this.senha = senha;
         this.telefone = telefone;
-        this.endereco = endereco;
+        this.senha = senha;
     }
+
+    // GETTERS
+
     public String getNome() {
         return nome;
-    }
-    public void setNome(String nome) {
-        this.nome = nome;
     }
 
     public String getEmail() {
         return email;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public String getTelefone() {
+        return telefone;
     }
 
     public String getSenha() {
         return senha;
     }
 
-    public void setSenha(String senha) {
-        this.senha = senha;
-    }
+    // SETTERS
 
-    public String getTelefone() {
-        return telefone;
-    }
+    public void setNome(String nome) {
 
-    public void setTelefone(String telefone) {
-        this.telefone = telefone;
-    }
-
-    public String getEndereco() {
-        return endereco;
-    }
-
-    public void setEndereco(String endereco) {
-        this.endereco = endereco;
-    }
-
-    public boolean login(String email,String senha){
-        if(this.email.equals(email) && this.senha.equals(senha)){
-            return true;
-        }else{
-            return false;
+        if(nome != null && !nome.isEmpty() && nome.length() >= 3) {
+            this.nome = nome;
         }
     }
 
+    public void setEmail(String email) {
+
+        if(email.contains("@") && email.contains(".") && email.length() >= 5) {
+            this.email = email;
+        }
+    }
+
+    public void setTelefone(String telefone) {
+
+        if(telefone != null && !telefone.isEmpty() && telefone.length() >= 6) {
+            this.telefone = telefone;
+        }
+    }
+
+    public void setSenha(String senha) {
+
+        if(senha.length() >= 4) {
+            this.senha = senha;
+        }
+    }
+
+    // EXIBIR DADOS
+
+    public void exibirUsuario() {
+
+        System.out.println("\n=== Usuário ===");
+
+        System.out.println("Nome: " + nome);
+        System.out.println("Email: " + email);
+        System.out.println("Telefone: " + telefone);
+    }
 }
