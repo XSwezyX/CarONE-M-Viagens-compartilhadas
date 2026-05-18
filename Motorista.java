@@ -2,7 +2,6 @@ import java.util.ArrayList;
 
 public class Motorista extends Usuario {
     private String modeloVeiculo;
-    private String placaVeiculo;
     public Motorista(
             String nome,
             String email,
