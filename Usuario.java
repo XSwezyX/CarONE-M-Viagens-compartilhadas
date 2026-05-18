@@ -30,8 +30,7 @@ public abstract class Usuario {
         }
     }
 
-    public abstract void cadastrarUsuario(Usuario usuario);
-    public abstract void listarUsuarios();
+    
 
     // GETTERS
 

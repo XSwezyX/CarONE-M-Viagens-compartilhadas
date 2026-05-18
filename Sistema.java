@@ -2,14 +2,17 @@
 
 import java.util.ArrayList;
 
-public class Sistema {
+public class Sistema{
 
     private ArrayList<Usuario> usuarios;
-    private ArrayList<Motorista> motoristas;
+    private ArrayList<Usuario> motoristas;
+    private ArrayList<Usuario> passageiros;
 
     public Sistema() {
 
         usuarios = new ArrayList<>();
+        motoristas = new ArrayList<>();
+        passageiros = new ArrayList<>();
 
         inicializarUsuarios();
     }
@@ -31,6 +34,8 @@ public class Sistema {
         );
 
         usuarios.add(u1);
+        motoristas.add(u1);
+        passageiros.add(u2);
         usuarios.add(u2);
     }
 
