@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public class Sistema {
 
     private ArrayList<Usuario> usuarios;
+    private ArrayList<Motorista> motoristas;
 
     public Sistema() {
 
@@ -15,14 +16,14 @@ public class Sistema {
 
     private void inicializarUsuarios() {
 
-        Usuario u1 = new Usuario(
+        Usuario u1 = new Motorista(
                 "João",
                 "joao@gmail.com",
                 "119996",
                 "1234"
         );
 
-        Usuario u2 = new Usuario(
+        Usuario u2 = new Passageiro(
                 "Maria",
                 "maria@gmail.com",
                 "118888",

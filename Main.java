@@ -54,32 +54,57 @@ public class Main {
 
             switch (opcao) {
 
-                case 1:
+            case 1:
 
                     System.out.println("\n=== Cadastro de Usuário ===");
 
-                    System.out.print("Nome: ");
-                    String nome = scanner.nextLine();
+                    String nome = Validador.validarNome(scanner);
 
-                    System.out.print("Email: ");
-                    String email = scanner.nextLine();
+                    String emailCadastro = Validador.validarEmail(scanner);
 
-                    System.out.print("Telefone: ");
-                    String telefone = scanner.nextLine();
+                    String telefone = Validador.validarTelefone(scanner);
 
-                    System.out.print("Senha: ");
-                    String senha = scanner.nextLine();
+                    String senhaCadastro = Validador.validarSenha(scanner);
 
-                    Usuario novoUsuario = new Usuario(
-                            nome,
-                            email,
-                            telefone,
-                            senha
-                    );
+                    System.out.print("Tipo (1 - Motorista, 2 - Passageiro): ");
+
+                    int tipo = scanner.nextInt();
+                    scanner.nextLine();
+
+                    Usuario novoUsuario = null;
+
+                    if(tipo == 1) {
+
+                        novoUsuario = new Motorista(
+                                nome,
+                                emailCadastro,
+                                telefone,
+                                senhaCadastro
+                        );
+                        novoUsuario.cadastrarUsuario(novoUsuario);
+
+                    } else if(tipo == 2) {
+
+                        novoUsuario = new Passageiro(
+                                nome,
+                                emailCadastro,
+                                telefone,
+                                senhaCadastro
+                        );
+                        novoUsuario.cadastrarUsuario(novoUsuario);
+                        novoUsuario.listarUsuarios();
+                    } else {
+
+                        System.out.println("Tipo inválido!");
+                        break;
+                    }
 
                     sistema.cadastrarUsuario(novoUsuario);
 
-                    System.out.println("Usuário cadastrado!");
+                    System.out.println(
+                            "Usuário cadastrado com sucesso!"
+                    );
+
                     break;
 
                 case 2:
@@ -92,11 +117,12 @@ public class Main {
                     break;
 
                 case 3:
-
+                
                     System.out.println(
                             usuarioLogado.getNome()
                             + " entrou como PASSAGEIRO"
                     );
+
 
                     break;
 

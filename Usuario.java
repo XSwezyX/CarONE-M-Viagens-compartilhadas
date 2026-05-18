@@ -1,6 +1,6 @@
 // Usuario.java
 
-public class Usuario {
+public abstract class Usuario {
 
     protected String nome;
     protected String email;
@@ -14,11 +14,24 @@ public class Usuario {
             String senha
     ) {
 
-        this.nome = nome;
-        this.email = email;
-        this.telefone = telefone;
-        this.senha = senha;
+        
+        if(nome != null && !nome.isEmpty() && nome.length() >= 3) {
+            this.nome = nome;
+        }
+
+        if(email != null && email.contains("@") && email.contains(".") && email.length() >= 5) {
+            this.email = email;
+        }
+        if(telefone != null && !telefone.isEmpty() && telefone.length() >= 6) {
+            this.telefone = telefone;
+        }
+        if(senha != null && senha.length() >= 4) {
+            this.senha = senha;
+        }
     }
+
+    public abstract void cadastrarUsuario(Usuario usuario);
+    public abstract void listarUsuarios();
 
     // GETTERS
 
@@ -37,37 +50,6 @@ public class Usuario {
     public String getSenha() {
         return senha;
     }
-
-    // SETTERS
-
-    public void setNome(String nome) {
-
-        if(nome != null && !nome.isEmpty() && nome.length() >= 3) {
-            this.nome = nome;
-        }
-    }
-
-    public void setEmail(String email) {
-
-        if(email.contains("@") && email.contains(".") && email.length() >= 5) {
-            this.email = email;
-        }
-    }
-
-    public void setTelefone(String telefone) {
-
-        if(telefone != null && !telefone.isEmpty() && telefone.length() >= 6) {
-            this.telefone = telefone;
-        }
-    }
-
-    public void setSenha(String senha) {
-
-        if(senha.length() >= 4) {
-            this.senha = senha;
-        }
-    }
-
     // EXIBIR DADOS
 
     public void exibirUsuario() {
