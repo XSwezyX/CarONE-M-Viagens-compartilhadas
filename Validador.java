@@ -99,14 +99,14 @@ public class Validador {
             System.out.print("Endereço: ");
             endereco = scanner.nextLine();
 
-            if(endereco != null && !endereco.isBlank() && endereco.length() >= 5) {
+            if(endereco == null || endereco.isBlank() || endereco.length() < 5) {
 
                 System.out.println(
                         "Endereço inválido!"
                 );
             }
 
-        } while(endereco.isBlank() || endereco.length() < 5);
+        } while(endereco == null || endereco.isBlank() || endereco.length() < 5);
 
         return endereco;
     }
