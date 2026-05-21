@@ -86,8 +86,6 @@ public class Menu {
         if (tipo == 1) {
             System.out.print("Modelo do veículo: ");
             String modelo = scanner.nextLine();
-            System.out.print("Placa do veículo: ");
-            String placa = scanner.nextLine();
             sistema.cadastrarUsuario(
                 new Motorista(nome, email, telefone, senha, endereco, modelo)
             );
@@ -144,12 +142,13 @@ public class Menu {
 
     private void menuMotorista(Motorista motorista) {
         int opcao = 0;
-        while (opcao != 4) {
+        while (opcao != 5) {
             System.out.println("\n=== Menu Motorista ===");
             System.out.println("1 - Cadastrar nova viagem");
             System.out.println("2 - Ver passageiros de uma viagem");
             System.out.println("3 - Ver minhas avaliações");
-            System.out.println("4 - Voltar");
+            System.out.println("4 - Concluir uma viagem");
+            System.out.println("5 - Voltar");
             System.out.print("Escolha: ");
             opcao = scanner.nextInt();
             scanner.nextLine();
@@ -158,7 +157,8 @@ public class Menu {
                 case 1: cadastrarViagem(motorista); break;
                 case 2: verPassageiros(motorista);  break;
                 case 3: verAvaliacoes(motorista);   break;
-                case 4: break;
+                case 4: concluirViagem(motorista); break;
+                case 5: break;
                 default: System.out.println("Opção inválida!");
             }
         }
@@ -275,6 +275,31 @@ public class Menu {
         for (Avaliacao a : avaliacoes) {
             System.out.println("  • " + a);
         }
+    }
+
+    private void concluirViagem(Motorista motorista) {
+        System.out.println("\n=== Concluir Viagem ===");
+
+        ArrayList<Viagem> agendadas = new ArrayList<>();
+        for (Viagem v : motorista.getViagens()) {
+            if (v.getStatus().equals("agendada")) agendadas.add(v);
+        }
+
+        if (agendadas.isEmpty()) {
+            System.out.println("Você não possui viagens agendadas.");
+            return;
+        }
+
+        for (int i = 0; i < agendadas.size(); i++) {
+            System.out.println((i + 1) + " - " + agendadas.get(i));
+        }
+
+        System.out.print("Selecione a viagem para concluir: ");
+        int idx = scanner.nextInt() - 1;
+        scanner.nextLine();
+
+        agendadas.get(idx).concluir();
+        System.out.println("Viagem concluída com sucesso!");
     }
 
     // ══════════════════════════════════════════

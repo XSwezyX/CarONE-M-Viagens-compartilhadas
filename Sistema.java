@@ -160,7 +160,7 @@ public class Sistema {
     public ArrayList<Viagem> buscarCaronas(Local origem, Local destino) {
         ArrayList<Viagem> resultado = new ArrayList<>();
         for (Viagem v : viagens) {
-            if (v.getStatus().equals("agendada") && v.podeAtenderPassageiro(origem, destino)) {
+            if (v.getStatus().equals("agendada") && v.isAceitaPassageiros() && v.podeAtenderPassageiro(origem, destino)) {
                 resultado.add(v);
             }
         }
