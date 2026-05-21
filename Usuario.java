@@ -1,5 +1,7 @@
 // Usuario.java
 
+import java.util.ArrayList;
+
 public abstract class Usuario {
 
     protected String nome;
@@ -7,6 +9,11 @@ public abstract class Usuario {
     protected String telefone;
     protected String senha;
     protected String endereco;
+    protected ArrayList<Avaliacao> avaliacoesRecebidas = new ArrayList<>();
+    protected ArrayList<Reserva> reservas = new ArrayList<>();
+
+    public boolean ehMotorista() { return false; }
+
 
     public Usuario(
             String nome,
@@ -33,6 +40,20 @@ public abstract class Usuario {
         if(endereco != null && !endereco.isEmpty()) {
             this.endereco = endereco;
         }
+        
+    }
+
+    public void receberAvaliacao(Avaliacao a) { avaliacoesRecebidas.add(a); }
+    public void adicionarReserva(Reserva r)   { reservas.add(r); }
+    public double getMediaAvaliacoes() {
+        if (avaliacoesRecebidas.isEmpty()) {
+            return 0.0;
+        }
+        double soma = 0;
+        for (Avaliacao a : avaliacoesRecebidas) {
+            soma += a.getNota();
+        }
+    return soma / avaliacoesRecebidas.size();
     }
 
     
@@ -52,6 +73,12 @@ public abstract class Usuario {
     }
     public String getEndereco() {
         return endereco;
+    }
+    public ArrayList<Avaliacao> getAvaliacoesRecebidas() { 
+        return avaliacoesRecebidas; 
+    }
+    public ArrayList<Reserva> getReservas() { 
+        return reservas; 
     }
 
     public boolean verificarSenha(String tentativa) {

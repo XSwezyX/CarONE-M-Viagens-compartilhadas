@@ -4,12 +4,14 @@ public class Reserva {
     private Local pontoEmbarque;
     private Local pontoDesembarque;
     private String status; // "confirmada" ou "recusada"
+    private Viagem viagem; // ← adiciona
 
-    public Reserva(Usuario passageiro, Local pontoEmbarque, Local pontoDesembarque) {
-        this.passageiro = passageiro;
-        this.pontoEmbarque = pontoEmbarque;
+   public Reserva(Usuario passageiro, Viagem viagem, Local pontoEmbarque, Local pontoDesembarque) {
+        this.passageiro       = passageiro;
+        this.viagem           = viagem;      // ← adiciona
+        this.pontoEmbarque    = pontoEmbarque;
         this.pontoDesembarque = pontoDesembarque;
-        this.status = "confirmada";
+        this.status           = "confirmada";
     }
 
     public void recusar() {
@@ -24,6 +26,7 @@ public class Reserva {
     public Local getPontoEmbarque()      { return pontoEmbarque; }
     public Local getPontoDesembarque()   { return pontoDesembarque; }
     public String getStatus()            { return status; }
+    public Viagem getViagem() { return viagem; }
 
     @Override
     public String toString() {

@@ -8,15 +8,31 @@ public class Viagem {
     private int lugaresDisponiveis;
     private ArrayList<Reserva> reservas;
     private String status; // "agendada" ou "concluida"
+    private boolean aceitaPassageiros;
+    private ArrayList<Usuario> jaAvaliaram = new ArrayList<>();
+    
 
-    public Viagem(Motorista motorista, ArrayList<Local> trajeto, int lugares) {
-        this.motorista = motorista;
-        this.trajeto = trajeto;
-        this.lugaresTotais = lugares;
+    public Viagem(Motorista motorista, ArrayList<Local> trajeto, int lugares, boolean aceitaPassageiros) {
+        this.motorista          = motorista;
+        this.trajeto            = trajeto;
+        this.lugaresTotais      = lugares;
         this.lugaresDisponiveis = lugares;
-        this.reservas = new ArrayList<>();
-        this.status = "agendada";
+        this.reservas           = new ArrayList<>();
+        this.status             = "agendada";
+        this.aceitaPassageiros  = aceitaPassageiros;
     }
+    public boolean isAceitaPassageiros() { return aceitaPassageiros; }
+
+    public boolean usuarioJaAvaliou(Usuario usuario) {
+        for (Usuario u : jaAvaliaram) {
+            if (u.getEmail().equals(usuario.getEmail())) return true;
+        }
+        return false;
+    }
+
+public void registrarAvaliacao(Usuario usuario) {
+    jaAvaliaram.add(usuario);
+}   
 
     // Verifica se a viagem pode atender o passageiro (tolerância de 2.0)
     public boolean podeAtenderPassageiro(Local origem, Local destino) {
