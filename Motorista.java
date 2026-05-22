@@ -5,6 +5,7 @@ public class Motorista extends Usuario {
 
     private String modeloVeiculo;
     private ArrayList<Viagem> viagens = new ArrayList<>();
+    private ArrayList<Usuario> motoristas = new ArrayList<>();
 
     public Motorista(String nome, String email, String telefone, String senha,
                      String endereco, String modeloVeiculo) {
