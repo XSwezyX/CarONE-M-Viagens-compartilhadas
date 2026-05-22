@@ -36,24 +36,36 @@ public void registrarAvaliacao(Usuario usuario) {
 
     // Verifica se a viagem pode atender o passageiro (tolerância de 2.0)
     public boolean podeAtenderPassageiro(Local origem, Local destino) {
-        if (lugaresDisponiveis == 0) return false;
 
-        int idxEmbarque    = -1;
-        int idxDesembarque = -1;
-
-        for (int i = 0; i < trajeto.size(); i++) {
-            Local ponto = trajeto.get(i);
-            if (idxEmbarque == -1 && ponto.distancia(origem) <= 2.0) {
-                idxEmbarque = i;
-            }
-            if (ponto.distancia(destino) <= 2.0) {
-                idxDesembarque = i;
-            }
-        }
-
-        return idxEmbarque != -1 && idxDesembarque != -1 && idxEmbarque < idxDesembarque;
+    if (getLugaresDisponiveis() <= 0) {
+        return false;
     }
 
+    int idxEmbarque = -1;
+    int idxDesembarque = -1;
+
+    for (int i = 0; i < trajeto.size(); i++) {
+
+        Local ponto = trajeto.get(i);
+
+        // ponto próximo da origem
+        if (idxEmbarque == -1 &&
+                ponto.distancia(origem) <= 2.0) {
+
+            idxEmbarque = i;
+        }
+
+        // ponto próximo do destino
+        if (ponto.distancia(destino) <= 2.0) {
+
+            idxDesembarque = i;
+        }
+    }
+
+    return idxEmbarque != -1
+            && idxDesembarque != -1
+            && idxEmbarque < idxDesembarque;
+}
     // Retorna o ponto do trajeto mais próximo de um local
     public Local pontoMaisProximo(Local local) {
     Local melhor = trajeto.get(0);
