@@ -70,6 +70,81 @@ public class Motorista extends Usuario {
         System.out.println(viagem);
     }
 
+    public void verPassageiros(Motorista motorista, Scanner scanner) {
+        System.out.println("\n=== Passageiros das Minhas Viagens ===");
+
+        ArrayList<Viagem> agendadas = new ArrayList<>();
+        for (Viagem v : motorista.getViagens()) {
+            if (v.getStatus().equals("agendada")) agendadas.add(v);
+        }
+
+        if (agendadas.isEmpty()) {
+            System.out.println("Você não possui viagens agendadas.");
+            return;
+        }
+
+        for (int i = 0; i < agendadas.size(); i++) {
+            System.out.println((i + 1) + " - " + agendadas.get(i));
+        }
+
+        System.out.print("Selecione a viagem: ");
+        int idx = scanner.nextInt() - 1;
+        scanner.nextLine();
+        Viagem viagem = agendadas.get(idx);
+
+        ArrayList<Reserva> reservas = viagem.getReservas();
+        if (reservas.isEmpty()) {
+            System.out.println("Nenhum passageiro nesta viagem ainda.");
+        } else {
+            System.out.println("\nPassageiros:");
+            for (Reserva r : reservas) {
+                System.out.println("  • " + r);
+            }
+        }
+    }
+
+    public void verAvaliacoes(Motorista motorista, Scanner scanner) {
+        System.out.println("\n=== Minhas Avaliações ===");
+
+        ArrayList<Avaliacao> avs = motorista.getAvaliacoesRecebidas();
+        if (avs.isEmpty()) {
+            System.out.println("Você ainda não recebeu avaliações.");
+            return;
+        }
+
+        System.out.printf("Média geral: %.1f/5 (%d avaliação(ões))%n",
+                motorista.getMediaAvaliacoes(), avs.size());
+        System.out.println("\nComentários:");
+        for (Avaliacao a : avs) {
+            System.out.println("  • " + a);
+        }
+    }
+
+    public void concluirViagem(Motorista motorista, Scanner scanner) {
+        System.out.println("\n=== Concluir Viagem ===");
+
+        ArrayList<Viagem> agendadas = new ArrayList<>();
+        for (Viagem v : motorista.getViagens()) {
+            if (v.getStatus().equals("agendada")) agendadas.add(v);
+        }
+
+        if (agendadas.isEmpty()) {
+            System.out.println("Você não possui viagens agendadas.");
+            return;
+        }
+
+        for (int i = 0; i < agendadas.size(); i++) {
+            System.out.println((i + 1) + " - " + agendadas.get(i));
+        }
+
+        System.out.print("Selecione a viagem para concluir: ");
+        int idx = scanner.nextInt() - 1;
+        scanner.nextLine();
+
+        agendadas.get(idx).concluir();
+        System.out.println("Viagem concluída com sucesso!");
+    }
+
     @Override
     public void listarLocais(ArrayList<Local> locais) {
         super.listarLocais(locais);

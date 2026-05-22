@@ -168,90 +168,13 @@ public class Menu {
 
             switch (opcao) {
                 case 1: motorista.cadastrarViagem(motorista, scanner, locais, viagens); break;
-                case 2: motorista.verPassageiros(motorista);  break;
-                case 3: verAvaliacoes(motorista);   break;
-                case 4: concluirViagem(motorista);  break;
+                case 2: motorista.verPassageiros(motorista, scanner);  break;
+                case 3: motorista.verAvaliacoes(motorista, scanner);   break;
+                case 4: motorista.concluirViagem(motorista, scanner);  break;
                 case 5: break;
                 default: System.out.println("Opção inválida!");
             }
         }
-    }
-
-
-
-    private void verPassageiros(Motorista motorista) {
-        System.out.println("\n=== Passageiros das Minhas Viagens ===");
-
-        ArrayList<Viagem> agendadas = new ArrayList<>();
-        for (Viagem v : motorista.getViagens()) {
-            if (v.getStatus().equals("agendada")) agendadas.add(v);
-        }
-
-        if (agendadas.isEmpty()) {
-            System.out.println("Você não possui viagens agendadas.");
-            return;
-        }
-
-        for (int i = 0; i < agendadas.size(); i++) {
-            System.out.println((i + 1) + " - " + agendadas.get(i));
-        }
-
-        System.out.print("Selecione a viagem: ");
-        int idx = scanner.nextInt() - 1;
-        scanner.nextLine();
-        Viagem viagem = agendadas.get(idx);
-
-        ArrayList<Reserva> reservas = viagem.getReservas();
-        if (reservas.isEmpty()) {
-            System.out.println("Nenhum passageiro nesta viagem ainda.");
-        } else {
-            System.out.println("\nPassageiros:");
-            for (Reserva r : reservas) {
-                System.out.println("  • " + r);
-            }
-        }
-    }
-
-    private void verAvaliacoes(Motorista motorista) {
-        System.out.println("\n=== Minhas Avaliações ===");
-
-        ArrayList<Avaliacao> avs = motorista.getAvaliacoesRecebidas();
-        if (avs.isEmpty()) {
-            System.out.println("Você ainda não recebeu avaliações.");
-            return;
-        }
-
-        System.out.printf("Média geral: %.1f/5 (%d avaliação(ões))%n",
-                motorista.getMediaAvaliacoes(), avs.size());
-        System.out.println("\nComentários:");
-        for (Avaliacao a : avs) {
-            System.out.println("  • " + a);
-        }
-    }
-
-    private void concluirViagem(Motorista motorista) {
-        System.out.println("\n=== Concluir Viagem ===");
-
-        ArrayList<Viagem> agendadas = new ArrayList<>();
-        for (Viagem v : motorista.getViagens()) {
-            if (v.getStatus().equals("agendada")) agendadas.add(v);
-        }
-
-        if (agendadas.isEmpty()) {
-            System.out.println("Você não possui viagens agendadas.");
-            return;
-        }
-
-        for (int i = 0; i < agendadas.size(); i++) {
-            System.out.println((i + 1) + " - " + agendadas.get(i));
-        }
-
-        System.out.print("Selecione a viagem para concluir: ");
-        int idx = scanner.nextInt() - 1;
-        scanner.nextLine();
-
-        agendadas.get(idx).concluir();
-        System.out.println("Viagem concluída com sucesso!");
     }
 
     // ══════════════════════════════════════════
@@ -279,14 +202,5 @@ public class Menu {
             }
         }
     }
-
-    
-
-    
-
-    // ══════════════════════════════════════════
-    //  UTILITÁRIOS
-    // ══════════════════════════════════════════
-
     
 }
