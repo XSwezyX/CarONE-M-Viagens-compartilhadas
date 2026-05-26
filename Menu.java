@@ -3,7 +3,7 @@ import java.util.Scanner;
 
 public class Menu {
 
-    public Scanner           scanner;
+    public Scanner scanner;
     private ArrayList<Motorista>  motoristas;
     private ArrayList<Passageiro> passageiros;
     private ArrayList<Local>      locais;
@@ -19,12 +19,9 @@ public class Menu {
         this.viagens     = viagens;
         this.avaliacoes  = avaliacoes;
         this.scanner     = new Scanner(System.in);
-        
     }
 
-    public ArrayList<Local> getlocais() {
-        return locais;
-    }
+    public ArrayList<Local> getlocais() { return locais; }
 
     // ══════════════════════════════════════════
     //  MENU PRINCIPAL
@@ -80,7 +77,7 @@ public class Menu {
                 return;
             }
             System.out.println("Bem-vindo, " + motoristaEncontrado.getNome() + "!");
-            menuMotorista(motoristaEncontrado, scanner, locais, viagens);
+            menuMotorista(motoristaEncontrado);
 
         } else if (tipo == 2) {
             Passageiro passageiroEncontrado = null;
@@ -153,25 +150,29 @@ public class Menu {
     //  MENU MOTORISTA
     // ══════════════════════════════════════════
 
-    private void menuMotorista(Motorista motorista, Scanner scanner, ArrayList<Local> locais, ArrayList<Viagem> viagens) {
+    private void menuMotorista(Motorista motorista) {
         int opcao = 0;
-        while (opcao != 5) {
+        while (opcao != 7) {
             System.out.println("\n=== Menu Motorista ===");
             System.out.println("1 - Cadastrar nova viagem");
             System.out.println("2 - Ver passageiros de uma viagem");
-            System.out.println("3 - Ver minhas avaliações");
+            System.out.println("3 - Responder solicitações de carona");
             System.out.println("4 - Concluir uma viagem");
-            System.out.println("5 - Voltar");
+            System.out.println("5 - Avaliar passageiros de viagem anterior");
+            System.out.println("6 - Ver minhas avaliações recebidas");
+            System.out.println("7 - Voltar");
             System.out.print("Escolha: ");
             opcao = scanner.nextInt();
             scanner.nextLine();
 
             switch (opcao) {
-                case 1: motorista.cadastrarViagem(motorista, scanner, locais, viagens); break;
-                case 2: motorista.verPassageiros(motorista, scanner);  break;
-                case 3: motorista.verAvaliacoes(motorista, scanner);   break;
-                case 4: motorista.concluirViagem(motorista, scanner);  break;
-                case 5: break;
+                case 1: motorista.cadastrarViagem(motorista, scanner, locais, viagens);                  break;
+                case 2: motorista.verPassageiros(motorista, scanner);                                    break;
+                case 3: motorista.responderSolicitacoes(motorista, scanner);                             break;
+                case 4: motorista.concluirViagem(motorista, scanner, avaliacoes);                        break;
+                case 5: motorista.avaliarViagemMotorista(motorista, scanner, viagens, avaliacoes);       break;
+                case 6: motorista.verAvaliacoes(motorista, scanner);                                     break;
+                case 7: break;
                 default: System.out.println("Opção inválida!");
             }
         }
@@ -195,12 +196,11 @@ public class Menu {
 
             switch (opcao) {
                 case 1: passageiro.buscarEPedirCarona(passageiro, scanner, locais, viagens); break;
-                case 2: passageiro.avaliarViagem(passageiro, scanner, viagens, avaliacoes); break;
-                case 3: passageiro.verReservas(passageiro); break;
+                case 2: passageiro.avaliarViagem(passageiro, scanner, viagens, avaliacoes);  break;
+                case 3: passageiro.verReservas(passageiro);                                  break;
                 case 4: break;
                 default: System.out.println("Opção inválida!");
             }
         }
     }
-    
 }

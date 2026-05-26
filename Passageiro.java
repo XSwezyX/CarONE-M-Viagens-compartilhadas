@@ -5,13 +5,16 @@ public class Passageiro extends Usuario {
 
     public Passageiro(String nome, String email, String telefone, String senha, String endereco) {
         super(nome, email, telefone, senha, endereco);
-        
     }
+
+    // ─────────────────────────────────────────
+    //  VER RESERVAS
+    // ─────────────────────────────────────────
 
     public void verReservas(Passageiro passageiro) {
         System.out.println("\n=== Minhas Reservas ===");
 
-        ArrayList<Reserva>reservas = passageiro.getReservas();
+        ArrayList<Reserva> reservas = passageiro.getReservas();
         if (reservas.isEmpty()) {
             System.out.println("Você não possui reservas.");
             return;
@@ -22,12 +25,12 @@ public class Passageiro extends Usuario {
         }
     }
 
-    @Override
-    public void listarLocais(ArrayList<Local> locais) {
-        super.listarLocais(locais);
-    }
+    // ─────────────────────────────────────────
+    //  BUSCAR E PEDIR CARONA
+    // ─────────────────────────────────────────
 
-    public void buscarEPedirCarona(Passageiro passageiro, Scanner scanner, ArrayList<Local> locais, ArrayList<Viagem> viagens) {
+    public void buscarEPedirCarona(Passageiro passageiro, Scanner scanner,
+                                   ArrayList<Local> locais, ArrayList<Viagem> viagens) {
         System.out.println("\n=== Buscar Carona ===");
         listarLocais(locais);
 
@@ -46,7 +49,7 @@ public class Passageiro extends Usuario {
 
         Local origem  = locais.get(idxOrigem);
         Local destino = locais.get(idxDestino);
- 
+
         ArrayList<Viagem> encontradas = new ArrayList<>();
         for (Viagem v : viagens) {
             if (v.getStatus().equals("agendada")
@@ -86,16 +89,20 @@ public class Passageiro extends Usuario {
         if (scanner.nextInt() == 2) { scanner.nextLine(); return; }
         scanner.nextLine();
 
-        Reserva reserva = viagem.confirmarReserva(passageiro, embarque, desembarque);
+        // Cria reserva com status "pendente" — aguarda aprovação do motorista
+        viagem.solicitarReserva(passageiro, embarque, desembarque);
 
-        if (reserva.isConfirmada()) {
-            System.out.println("\nCarona confirmada! Boa viagem.");
-        } else {
-            System.out.println("\nMotorista recusou a carona. Tente outra viagem.");
-        }
+        System.out.println("\nSolicitação enviada com sucesso!");
+        System.out.println("Aguarde a resposta do motorista " + viagem.getMotorista().getNome() + ".");
+        System.out.println("Você pode acompanhar o status em 'Ver minhas reservas'.");
     }
 
-    public void avaliarViagem(Passageiro passageiro, Scanner scanner, ArrayList<Viagem> viagens, ArrayList<Avaliacao> avaliacoes) {
+    // ─────────────────────────────────────────
+    //  AVALIAR VIAGEM (passageiro avalia motorista)
+    // ─────────────────────────────────────────
+
+    public void avaliarViagem(Passageiro passageiro, Scanner scanner,
+                              ArrayList<Viagem> viagens, ArrayList<Avaliacao> avaliacoes) {
         System.out.println("\n=== Avaliar Viagem ===");
 
         ArrayList<Viagem> paraAvaliar = new ArrayList<>();
@@ -140,5 +147,10 @@ public class Passageiro extends Usuario {
         viagem.registrarAvaliacao(avaliacao);
 
         System.out.println("Avaliação registrada: " + avaliacao);
+    }
+
+    @Override
+    public void listarLocais(ArrayList<Local> locais) {
+        super.listarLocais(locais);
     }
 }
