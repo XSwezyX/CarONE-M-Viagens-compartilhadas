@@ -2,7 +2,6 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Passageiro extends Usuario {
-    private ArrayList<Usuario> passageiros = new ArrayList<>();
 
     public Passageiro(String nome, String email, String telefone, String senha, String endereco) {
         super(nome, email, telefone, senha, endereco);
