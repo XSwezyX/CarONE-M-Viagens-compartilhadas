@@ -1,64 +1,61 @@
 import java.util.ArrayList;
 
-/**
- * Henrique Haramaki Mataveli RA:10752924 Moabe Guedes RA: 10748053
- * Classe base abstrata que representa qualquer usuário cadastrado no sistema CarONE-M.
- *
- * <p>Define os atributos e comportamentos comuns a motoristas e passageiros,
- * como dados pessoais, autenticação por senha, avaliações recebidas e reservas
- * associadas ao perfil. Subclasses concretas ({@link Motorista} e {@link Passageiro})
- * especializam o comportamento de acordo com o papel do usuário na plataforma.</p>
- */
+/*
+ Henrique Haramaki Mataveli RA:10752924 Moabe Guedes RA: 10748053
+ Classe base abstrata que representa qualquer usuário cadastrado no sistema CarONE-M.
+
+ <p>Define os atributos e comportamentos comuns a motoristas e passageiros,
+ como dados pessoais, autenticação por senha, avaliações recebidas e reservas
+ associadas ao perfil. Subclasses concretas (Motorista e Passageiro)
+ especializam o comportamento de acordo com o papel do usuário na plataforma.</p>
+
+*/
 public abstract class Usuario {
 
-    /** Nome completo do usuário (mínimo de 3 caracteres). */
+    /* Nome completo do usuário (mínimo de 3 caracteres). */
     protected String nome;
 
-    /** Endereço de e-mail, usado como identificador único de login. */
+    /* Endereço de e-mail, usado como identificador único de login. */
     protected String email;
 
-    /** Número de telefone de contato (mínimo de 6 dígitos). */
+    /* Número de telefone de contato (mínimo de 6 dígitos). */
     protected String telefone;
 
-    /** Senha de acesso ao sistema (mínimo de 4 caracteres). */
+    /* Senha de acesso ao sistema (mínimo de 4 caracteres). */
     protected String senha;
 
-    /** Endereço residencial do usuário. */
+    /* Endereço residencial do usuário. */
     protected String endereco;
 
-    /** Lista de avaliações recebidas de outros usuários após viagens compartilhadas. */
+    /* Lista de avaliações recebidas de outros usuários após viagens compartilhadas. */
     protected ArrayList<Avaliacao> avaliacoesRecebidas = new ArrayList<>();
 
-    /** Lista de reservas (solicitações de carona) vinculadas a este usuário. */
+    /* Lista de reservas (solicitações de carona) vinculadas a este usuário. */
     protected ArrayList<Reserva> reservas = new ArrayList<>();
 
     // ─────────────────────────────────────────
     //  CONSTRUTOR
     // ─────────────────────────────────────────
 
-    /**
-     * Cria um novo usuário com dados pessoais validados.
-     *
-     * <p>Cada campo é atribuído somente se passar pelas regras de validação
-     * correspondentes. Campos que não atendam aos critérios são simplesmente
-     * ignorados (ficam {@code null}); a responsabilidade de garantir dados
-     * corretos antes da chamada fica com {@link Validador}.</p>
-     *
-     * <p>Regras aplicadas:</p>
-     * <ul>
-     *   <li>Nome: não nulo, não vazio, mínimo de 3 caracteres;</li>
-     *   <li>E-mail: contém '@' e '.', mínimo de 5 caracteres;</li>
-     *   <li>Telefone: não vazio, mínimo de 6 caracteres;</li>
-     *   <li>Senha: mínimo de 4 caracteres;</li>
-     *   <li>Endereço: não nulo e não vazio.</li>
-     * </ul>
-     *
-     * @param nome      nome completo do usuário
-     * @param email     e-mail de acesso
-     * @param telefone  número de telefone
-     * @param senha     senha de autenticação
-     * @param endereco  endereço residencial
-     */
+/*
+ Cria um novo usuário com dados pessoais validados.
+
+ <p>Cada campo é atribuído somente se passar pelas regras de validação
+ correspondentes. Campos que não atendam aos critérios são simplesmente
+ ignorados (ficam null); a responsabilidade de garantir dados
+ corretos antes da chamada fica com Validador.</p>
+
+ <p>Regras aplicadas:</p>
+ <ul>
+ <li>Nome: não nulo, não vazio, mínimo de 3 caracteres;</li>
+ <li>E-mail: contém '@' e '.', mínimo de 5 caracteres;</li>
+ <li>Telefone: não vazio, mínimo de 6 caracteres;</li>
+ <li>Senha: mínimo de 4 caracteres;</li>
+ <li>Endereço: não nulo e não vazio.</li>
+ </ul>
+
+
+*/
     public Usuario(String nome, String email, String telefone, String senha, String endereco) {
         if (nome != null && !nome.isEmpty() && nome.length() >= 3) {
             this.nome = nome;
@@ -81,43 +78,43 @@ public abstract class Usuario {
     //  IDENTIFICAÇÃO DE PERFIL
     // ─────────────────────────────────────────
 
-    /**
-     * Indica se este usuário é um motorista.
-     *
-     * <p>A implementação padrão retorna {@code false}. A subclasse {@link Motorista}
-     * sobrescreve este método para retornar {@code true}, permitindo verificar
-     * o papel do usuário sem uso de {@code instanceof}.</p>
-     *
-     * @return {@code false} para todo usuário que não seja motorista
-     */
+/*
+ Indica se este usuário é um motorista.
+
+ <p>A implementação padrão retorna false. A subclasse Motorista
+ sobrescreve este método para retornar true, permitindo verificar
+ o papel do usuário sem uso de instanceof.</p>
+
+
+*/
     public boolean ehMotorista() { return false; }
 
     // ─────────────────────────────────────────
     //  AVALIAÇÕES E RESERVAS
     // ─────────────────────────────────────────
 
-    /**
-     * Registra uma avaliação recebida por este usuário.
-     *
-     * @param a avaliação a ser adicionada ao histórico
-     */
+/*
+ Registra uma avaliação recebida por este usuário.
+
+
+*/
     public void receberAvaliacao(Avaliacao a) { avaliacoesRecebidas.add(a); }
 
-    /**
-     * Vincula uma reserva ao perfil deste usuário.
-     *
-     * <p>Usado tanto para registrar reservas de passageiros quanto para
-     * manter o histórico visível ao usuário em "Ver minhas reservas".</p>
-     *
-     * @param r reserva a ser adicionada
-     */
+/*
+ Vincula uma reserva ao perfil deste usuário.
+
+ <p>Usado tanto para registrar reservas de passageiros quanto para
+ manter o histórico visível ao usuário em "Ver minhas reservas".</p>
+
+
+*/
     public void adicionarReserva(Reserva r) { reservas.add(r); }
 
-    /**
-     * Calcula a média aritmética de todas as avaliações recebidas.
-     *
-     * @return média das notas recebidas, ou {@code 0.0} se não houver nenhuma
-     */
+/*
+ Calcula a média aritmética de todas as avaliações recebidas.
+
+
+*/
     public double getMediaAvaliacoes() {
         if (avaliacoesRecebidas.isEmpty()) return 0.0;
         double soma = 0;
@@ -125,12 +122,11 @@ public abstract class Usuario {
         return soma / avaliacoesRecebidas.size();
     }
 
-    /**
-     * Verifica se a senha fornecida corresponde à senha cadastrada.
-     *
-     * @param tentativa string digitada pelo usuário no momento do login
-     * @return {@code true} se a senha estiver correta
-     */
+/*
+ Verifica se a senha fornecida corresponde à senha cadastrada.
+
+
+*/
     public boolean verificarSenha(String tentativa) {
         return this.senha.equals(tentativa);
     }
@@ -139,14 +135,14 @@ public abstract class Usuario {
     //  VIAGENS
     // ─────────────────────────────────────────
 
-    /**
-     * Retorna as viagens associadas a este usuário.
-     *
-     * <p>A implementação padrão retorna uma lista vazia. Subclasses que possuem
-     * viagens próprias (como {@link Motorista}) devem sobrescrever este método.</p>
-     *
-     * @return lista de viagens do usuário
-     */
+/*
+ Retorna as viagens associadas a este usuário.
+
+ <p>A implementação padrão retorna uma lista vazia. Subclasses que possuem
+ viagens próprias (como Motorista) devem sobrescrever este método.</p>
+
+
+*/
     public ArrayList<Viagem> getViagens() {
         return new ArrayList<>();
     }
@@ -155,14 +151,14 @@ public abstract class Usuario {
     //  UTILITÁRIO — EXIBIÇÃO DE LOCAIS
     // ─────────────────────────────────────────
 
-    /**
-     * Exibe no console a lista numerada de locais disponíveis para seleção.
-     *
-     * <p>Utilizado antes de solicitar que o usuário escolha origem, destino ou
-     * paradas intermediárias em operações de cadastro e busca de viagens.</p>
-     *
-     * @param locais lista de pontos geográficos cadastrados no sistema
-     */
+/*
+ Exibe no console a lista numerada de locais disponíveis para seleção.
+
+ <p>Utilizado antes de solicitar que o usuário escolha origem, destino ou
+ paradas intermediárias em operações de cadastro e busca de viagens.</p>
+
+
+*/
     public void listarLocais(ArrayList<Local> locais) {
         System.out.println("Locais disponíveis:");
         for (int i = 0; i < locais.size(); i++) {
@@ -174,21 +170,21 @@ public abstract class Usuario {
     //  GETTERS
     // ─────────────────────────────────────────
 
-    /** @return nome completo do usuário */
+    // nome completo do usuário
     public String getNome()                              { return nome; }
 
-    /** @return e-mail do usuário */
+    // e-mail do usuário
     public String getEmail()                             { return email; }
 
-    /** @return telefone do usuário */
+    // telefone do usuário
     public String getTelefone()                          { return telefone; }
 
-    /** @return endereço residencial do usuário */
+    // endereço residencial do usuário
     public String getEndereco()                          { return endereco; }
 
-    /** @return lista de avaliações recebidas */
+    // lista de avaliações recebidas
     public ArrayList<Avaliacao> getAvaliacoesRecebidas() { return avaliacoesRecebidas; }
 
-    /** @return lista de reservas vinculadas ao usuário */
+    // lista de reservas vinculadas ao usuário
     public ArrayList<Reserva>   getReservas()            { return reservas; }
 }

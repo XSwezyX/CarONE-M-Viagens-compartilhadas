@@ -1,38 +1,34 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
-/**
- * Henrique Haramaki Mataveli RA:10752924 Moabe Guedes RA: 10748053
- * Representa um usuário com perfil de motorista no sistema CarONE-M.
- *
- * <p>Além dos dados herdados de {@link Usuario}, o motorista possui o modelo do
- * veículo e uma lista própria de viagens cadastradas. Por meio deste perfil é
- * possível criar viagens, responder solicitações de passageiros, concluir viagens
- * e avaliar quem viajou junto.</p>
- */
+/*
+ Henrique Haramaki Mataveli RA:10752924 Moabe Guedes RA: 10748053
+ Representa um usuário com perfil de motorista no sistema CarONE-M.
+
+ <p>Além dos dados herdados de Usuario, o motorista possui o modelo do
+ veículo e uma lista própria de viagens cadastradas. Por meio deste perfil é
+ possível criar viagens, responder solicitações de passageiros, concluir viagens
+ e avaliar quem viajou junto.</p>
+
+*/
 public class Motorista extends Usuario {
 
-    /** Modelo do veículo utilizado pelo motorista nas viagens (ex.: "Honda Civic"). */
+    /* Modelo do veículo utilizado pelo motorista nas viagens (ex.: "Honda Civic"). */
     private String modeloVeiculo;
 
-    /** Lista de viagens cadastradas e gerenciadas por este motorista. */
+    /* Lista de viagens cadastradas e gerenciadas por este motorista. */
     private ArrayList<Viagem> viagens = new ArrayList<>();
 
     // ─────────────────────────────────────────
     //  CONSTRUTOR
     // ─────────────────────────────────────────
 
-    /**
-     * Cria um novo motorista com dados pessoais e modelo do veículo.
-     * A validação dos campos comuns é delegada ao construtor de {@link Usuario}.
-     *
-     * @param nome           nome completo
-     * @param email          e-mail de acesso
-     * @param telefone       número de telefone
-     * @param senha          senha de autenticação
-     * @param endereco       endereço residencial
-     * @param modeloVeiculo  modelo do veículo (ex.: "VW Gol")
-     */
+/*
+ Cria um novo motorista com dados pessoais e modelo do veículo.
+ A validação dos campos comuns é delegada ao construtor de Usuario.
+
+
+*/
     public Motorista(String nome, String email, String telefone, String senha,
                      String endereco, String modeloVeiculo) {
         super(nome, email, telefone, senha, endereco);
@@ -43,16 +39,13 @@ public class Motorista extends Usuario {
     //  UTILITÁRIO — lê inteiro com intervalo válido
     // ─────────────────────────────────────────
 
-    /**
-     * Lê um número inteiro do console garantindo que o valor esteja no intervalo [min, max].
-     *
-     * <p>Repete a solicitação enquanto o valor for inválido ou não for um número inteiro.</p>
-     *
-     * @param scanner instância de {@link Scanner} para leitura da entrada
-     * @param min     valor mínimo aceito (inclusivo)
-     * @param max     valor máximo aceito (inclusivo)
-     * @return número inteiro válido digitado pelo usuário
-     */
+/*
+ Lê um número inteiro do console garantindo que o valor esteja no intervalo [min, max].
+
+ <p>Repete a solicitação enquanto o valor for inválido ou não for um número inteiro.</p>
+
+
+*/
     private int lerOpcao(Scanner scanner, int min, int max) {
         int valor = -1;
         while (valor < min || valor > max) {
@@ -72,23 +65,20 @@ public class Motorista extends Usuario {
     //  CADASTRAR VIAGEM
     // ─────────────────────────────────────────
 
-    /**
-     * Conduz o fluxo de cadastro de uma nova viagem via console.
-     *
-     * <p>O processo inclui:</p>
-     * <ol>
-     *   <li>Seleção do ponto de partida e do destino a partir da lista de locais;</li>
-     *   <li>Adição opcional de paradas intermediárias ao trajeto;</li>
-     *   <li>Definição do número de lugares disponíveis (mínimo 1);</li>
-     *   <li>Escolha se a viagem aceita ou não passageiros adicionais.</li>
-     * </ol>
-     * <p>A viagem criada é adicionada tanto à lista global quanto ao perfil do motorista.</p>
-     *
-     * @param motorista motorista que está cadastrando a viagem
-     * @param scanner   instância de {@link Scanner} para leitura da entrada
-     * @param locais    lista de todos os locais disponíveis no sistema
-     * @param viagens   lista global de viagens onde a nova será registrada
-     */
+/*
+ Conduz o fluxo de cadastro de uma nova viagem via console.
+
+ <p>O processo inclui:</p>
+ <ol>
+ <li>Seleção do ponto de partida e do destino a partir da lista de locais;</li>
+ <li>Adição opcional de paradas intermediárias ao trajeto;</li>
+ <li>Definição do número de lugares disponíveis (mínimo 1);</li>
+ <li>Escolha se a viagem aceita ou não passageiros adicionais.</li>
+ </ol>
+ <p>A viagem criada é adicionada tanto à lista global quanto ao perfil do motorista.</p>
+
+
+*/
     public void cadastrarViagem(Motorista motorista, Scanner scanner,
                                 ArrayList<Local> locais, ArrayList<Viagem> viagens) {
         System.out.println("\n=== Cadastrar Viagem ===");
@@ -154,15 +144,14 @@ public class Motorista extends Usuario {
     //  VER PASSAGEIROS
     // ─────────────────────────────────────────
 
-    /**
-     * Exibe os passageiros confirmados em uma das viagens agendadas do motorista.
-     *
-     * <p>Lista apenas viagens com status {@code "agendada"} e, após a seleção,
-     * apresenta somente as reservas com status {@code "confirmada"}.</p>
-     *
-     * @param motorista o motorista que deseja consultar seus passageiros
-     * @param scanner   instância de {@link Scanner} para leitura da entrada
-     */
+/*
+ Exibe os passageiros confirmados em uma das viagens agendadas do motorista.
+
+ <p>Lista apenas viagens com status "agendada" e, após a seleção,
+ apresenta somente as reservas com status "confirmada".</p>
+
+
+*/
     public void verPassageiros(Motorista motorista, Scanner scanner) {
         System.out.println("\n=== Passageiros das Minhas Viagens ===");
 
@@ -205,17 +194,16 @@ public class Motorista extends Usuario {
     //  RESPONDER SOLICITAÇÕES PENDENTES
     // ─────────────────────────────────────────
 
-    /**
-     * Exibe e processa todas as solicitações de carona pendentes do motorista.
-     *
-     * <p>Percorre todas as viagens agendadas do motorista, coleta as reservas com
-     * status {@code "pendente"} e apresenta cada uma ao motorista para aceitar ou recusar.
-     * Ao aceitar, um lugar é descontado do veículo; ao recusar, a reserva é marcada como
-     * {@code "recusada"} e o passageiro poderá visualizar a resposta em suas reservas.</p>
-     *
-     * @param motorista o motorista que está respondendo as solicitações
-     * @param scanner   instância de {@link Scanner} para leitura da entrada
-     */
+/*
+ Exibe e processa todas as solicitações de carona pendentes do motorista.
+
+ <p>Percorre todas as viagens agendadas do motorista, coleta as reservas com
+ status "pendente" e apresenta cada uma ao motorista para aceitar ou recusar.
+ Ao aceitar, um lugar é descontado do veículo; ao recusar, a reserva é marcada como
+ "recusada" e o passageiro poderá visualizar a resposta em suas reservas.</p>
+
+
+*/
     public void responderSolicitacoes(Motorista motorista, Scanner scanner) {
         System.out.println("\n=== Solicitações de Carona Pendentes ===");
 
@@ -260,11 +248,11 @@ public class Motorista extends Usuario {
     //  VER AVALIAÇÕES RECEBIDAS
     // ─────────────────────────────────────────
 
-    /**
-     * Exibe a média geral e todos os comentários de avaliações recebidos pelo motorista.
-     *
-     * @param motorista o motorista cujas avaliações serão exibidas
-     */
+/*
+ Exibe a média geral e todos os comentários de avaliações recebidos pelo motorista.
+
+
+*/
     public void verAvaliacoes(Motorista motorista) {
         System.out.println("\n=== Minhas Avaliações ===");
         ArrayList<Avaliacao> avs = motorista.getAvaliacoesRecebidas();
@@ -286,17 +274,15 @@ public class Motorista extends Usuario {
     //  CONCLUIR VIAGEM (+ avaliação imediata)
     // ─────────────────────────────────────────
 
-    /**
-     * Marca uma viagem agendada como concluída e oferece avaliação imediata dos passageiros.
-     *
-     * <p>Após selecionar a viagem, o motorista pode optar por avaliar todos os
-     * passageiros confirmados naquele momento. Caso prefira avaliar depois,
-     * pode acessar a opção "Avaliar passageiros de viagem anterior".</p>
-     *
-     * @param motorista  o motorista que está concluindo a viagem
-     * @param scanner    instância de {@link Scanner} para leitura da entrada
-     * @param avaliacoes lista global de avaliações onde as novas serão registradas
-     */
+/*
+ Marca uma viagem agendada como concluída e oferece avaliação imediata dos passageiros.
+
+ <p>Após selecionar a viagem, o motorista pode optar por avaliar todos os
+ passageiros confirmados naquele momento. Caso prefira avaliar depois,
+ pode acessar a opção "Avaliar passageiros de viagem anterior".</p>
+
+
+*/
     public void concluirViagem(Motorista motorista, Scanner scanner,
                                ArrayList<Avaliacao> avaliacoes) {
         System.out.println("\n=== Concluir Viagem ===");
@@ -343,19 +329,16 @@ public class Motorista extends Usuario {
     //  AVALIAR PASSAGEIROS DE VIAGEM ANTERIOR
     // ─────────────────────────────────────────
 
-    /**
-     * Permite ao motorista avaliar passageiros de viagens concluídas ainda não avaliados.
-     *
-     * <p>Lista apenas as viagens onde ainda existe pelo menos um passageiro confirmado
-     * pendente de avaliação pelo motorista. Após a seleção da viagem, todos os
-     * passageiros ainda não avaliados são percorridos para avaliação.</p>
-     *
-     * @param motorista    o motorista que deseja avaliar
-     * @param scanner      instância de {@link Scanner} para leitura da entrada
-     * @param todasViagens lista global de viagens (não utilizada diretamente; a filtragem
-     *                     é feita nas viagens do próprio motorista)
-     * @param avaliacoes   lista global de avaliações onde as novas serão registradas
-     */
+/*
+ Permite ao motorista avaliar passageiros de viagens concluídas ainda não avaliados.
+
+ <p>Lista apenas as viagens onde ainda existe pelo menos um passageiro confirmado
+ pendente de avaliação pelo motorista. Após a seleção da viagem, todos os
+ passageiros ainda não avaliados são percorridos para avaliação.</p>
+
+ é feita nas viagens do próprio motorista)
+
+*/
     public void avaliarViagemMotorista(Motorista motorista, Scanner scanner,
                                        ArrayList<Viagem> todasViagens,
                                        ArrayList<Avaliacao> avaliacoes) {
@@ -404,20 +387,16 @@ public class Motorista extends Usuario {
     //  HELPER PRIVADO — avalia lista de passageiros de uma viagem
     // ─────────────────────────────────────────
 
-    /**
-     * Percorre uma lista de reservas e solicita ao motorista que avalie cada passageiro.
-     *
-     * <p>Método auxiliar compartilhado entre {@link #concluirViagem} e
-     * {@link #avaliarViagemMotorista} para evitar duplicação de lógica.
-     * Para cada passageiro, coleta nota e comentário opcional, cria a {@link Avaliacao}
-     * e a registra tanto na lista global quanto na viagem.</p>
-     *
-     * @param motorista    motorista que está realizando as avaliações
-     * @param scanner      instância de {@link Scanner} para leitura da entrada
-     * @param viagem       viagem à qual as reservas pertencem
-     * @param passageiros  lista de reservas cujos passageiros serão avaliados
-     * @param avaliacoes   lista global de avaliações onde as novas serão adicionadas
-     */
+/*
+ Percorre uma lista de reservas e solicita ao motorista que avalie cada passageiro.
+
+ <p>Método auxiliar compartilhado entre #concluirViagem e
+ #avaliarViagemMotorista para evitar duplicação de lógica.
+ Para cada passageiro, coleta nota e comentário opcional, cria a Avaliacao
+ e a registra tanto na lista global quanto na viagem.</p>
+
+
+*/
     private void avaliarPassageirosDeViagem(Motorista motorista, Scanner scanner,
                                             Viagem viagem, ArrayList<Reserva> passageiros,
                                             ArrayList<Avaliacao> avaliacoes) {
@@ -445,11 +424,11 @@ public class Motorista extends Usuario {
     //  EXIBIÇÃO DE LOCAIS
     // ─────────────────────────────────────────
 
-    /**
-     * Delega a exibição da lista de locais à implementação da superclasse.
-     *
-     * @param locais lista de locais a exibir
-     */
+/*
+ Delega a exibição da lista de locais à implementação da superclasse.
+
+
+*/
     @Override
     public void listarLocais(ArrayList<Local> locais) {
         super.listarLocais(locais);
@@ -459,29 +438,29 @@ public class Motorista extends Usuario {
     //  IDENTIFICAÇÃO E GETTERS
     // ─────────────────────────────────────────
 
-    /**
-     * Confirma que este usuário é um motorista.
-     *
-     * @return {@code true} sempre, sobrescrevendo o {@code false} padrão de {@link Usuario}
-     */
+/*
+ Confirma que este usuário é um motorista.
+
+
+*/
     @Override
     public boolean ehMotorista() { return true; }
 
-    /**
-     * Retorna as viagens cadastradas por este motorista.
-     *
-     * @return lista de viagens do motorista
-     */
+/*
+ Retorna as viagens cadastradas por este motorista.
+
+
+*/
     @Override
     public ArrayList<Viagem> getViagens() { return viagens; }
 
-    /**
-     * Adiciona uma viagem à lista pessoal do motorista.
-     *
-     * @param v viagem a ser associada ao perfil
-     */
+/*
+ Adiciona uma viagem à lista pessoal do motorista.
+
+
+*/
     public void adicionarViagem(Viagem v) { viagens.add(v); }
 
-    /** @return modelo do veículo utilizado pelo motorista */
+    // modelo do veículo utilizado pelo motorista
     public String getModeloVeiculo()      { return modeloVeiculo; }
 }

@@ -1,23 +1,24 @@
 import java.util.ArrayList;
 
-/**
- * Henrique Haramaki Mataveli RA:10752924 Moabe Guedes RA: 10748053
- * Ponto de entrada do sistema CarONE-M — Viagens Compartilhadas.
- *
- * <p>Inicializa todas as coleções de dados (locais, motoristas, passageiros, viagens e
- * avaliações), popula o sistema com dados simulados representando um estado inicial
- * realista e entrega o controle ao {@link Menu} para interação via console.</p>
- *
- * <p>Como o sistema não utiliza persistência em arquivos ou banco de dados, toda a
- * "base de dados" vive na memória e é recriada a cada execução.</p>
- */
+/*
+ Henrique Haramaki Mataveli RA:10752924 Moabe Guedes RA: 10748053
+ Ponto de entrada do sistema CarONE-M — Viagens Compartilhadas.
+
+ <p>Inicializa todas as coleções de dados (locais, motoristas, passageiros, viagens e
+ avaliações), popula o sistema com dados simulados representando um estado inicial
+ realista e entrega o controle ao Menu para interação via console.</p>
+
+ <p>Como o sistema não utiliza persistência em arquivos ou banco de dados, toda a
+ "base de dados" vive na memória e é recriada a cada execução.</p>
+
+*/
 public class Main {
 
-    /**
-     * Método principal. Cria as listas globais, preenche com dados simulados e inicia o menu.
-     *
-     * @param args argumentos de linha de comando (não utilizados)
-     */
+/*
+ Método principal. Cria as listas globais, preenche com dados simulados e inicia o menu.
+
+
+*/
     public static void main(String[] args) {
         ArrayList<Motorista>  motoristas  = new ArrayList<>();
         ArrayList<Passageiro> passageiros = new ArrayList<>();
@@ -36,15 +37,15 @@ public class Main {
     //  LOCAIS
     // ─────────────────────────────────────────
 
-    /**
-     * Cadastra os pontos geográficos disponíveis no sistema.
-     *
-     * <p>As coordenadas (x, y) representam posições em um plano cartesiano simplificado,
-     * onde a unidade equivale aproximadamente a 1 km. Os bairros e avenidas referenciados
-     * são inspirados em São Paulo, mas as distâncias são fictícias para fins didáticos.</p>
-     *
-     * @param locais lista onde os locais serão adicionados
-     */
+/*
+ Cadastra os pontos geográficos disponíveis no sistema.
+
+ <p>As coordenadas (x, y) representam posições em um plano cartesiano simplificado,
+ onde a unidade equivale aproximadamente a 1 km. Os bairros e avenidas referenciados
+ são inspirados em São Paulo, mas as distâncias são fictícias para fins didáticos.</p>
+
+
+*/
     private static void inicializarLocais(ArrayList<Local> locais) {
         locais.add(new Local("Paulista",      "Av. Paulista, 900",        0,   0));
         locais.add(new Local("Pinheiros",     "Largo da Batata",         -5,   2));
@@ -62,26 +63,22 @@ public class Main {
     //  DADOS SIMULADOS
     // ─────────────────────────────────────────
 
-    /**
-     * Popula o sistema com usuários, viagens e avaliações simulados.
-     *
-     * <p>Os dados representam dois grupos distintos:</p>
-     * <ul>
-     *   <li><strong>Viagens concluídas (1–4):</strong> com passageiros confirmados e avaliações
-     *       já registradas, usadas para demonstrar o histórico e a funcionalidade de avaliação;</li>
-     *   <li><strong>Viagens agendadas (5–11):</strong> abertas para busca e solicitação
-     *       durante a execução do programa, incluindo variações como viagem lotada (v7)
-     *       e viagem que não aceita passageiros (v8).</li>
-     * </ul>
-     *
-     * <p>Credenciais de teste: todos os usuários possuem senha {@code "1234"}.</p>
-     *
-     * @param motoristas  lista onde os motoristas serão adicionados
-     * @param passageiros lista onde os passageiros serão adicionados
-     * @param locais      lista de locais já inicializada por {@link #inicializarLocais}
-     * @param viagens     lista onde as viagens serão adicionadas
-     * @param avaliacoes  lista onde as avaliações serão adicionadas
-     */
+/*
+ Popula o sistema com usuários, viagens e avaliações simulados.
+
+ <p>Os dados representam dois grupos distintos:</p>
+ <ul>
+ <li><strong>Viagens concluídas (1–4):</strong> com passageiros confirmados e avaliações
+ já registradas, usadas para demonstrar o histórico e a funcionalidade de avaliação;</li>
+ <li><strong>Viagens agendadas (5–11):</strong> abertas para busca e solicitação
+ durante a execução do programa, incluindo variações como viagem lotada (v7)
+ e viagem que não aceita passageiros (v8).</li>
+ </ul>
+
+ <p>Credenciais de teste: todos os usuários possuem senha "1234".</p>
+
+
+*/
     private static void inicializarDados(ArrayList<Motorista>  motoristas,
                                          ArrayList<Passageiro> passageiros,
                                          ArrayList<Local>      locais,

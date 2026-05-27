@@ -1,26 +1,26 @@
 import java.util.Scanner;
 
-/**
- * Henrique Haramaki Mataveli RA:10752924 Moabe Guedes RA: 10748053
- * Utilitário estático responsável por ler e validar os dados de entrada do usuário.
- *
- * <p>Cada método mantém um laço de repetição que solicita o dado ao usuário até que
- * o valor digitado atenda às regras estabelecidas. Isso evita que informações
- * inválidas cheguem às classes de domínio.</p>
- *
- * <p>Todos os métodos são estáticos e não dependem de instância, podendo ser
- * chamados diretamente como {@code Validador.validarNome(scanner)}.</p>
- */
+/*
+ Henrique Haramaki Mataveli RA:10752924 Moabe Guedes RA: 10748053
+ Utilitário estático responsável por ler e validar os dados de entrada do usuário.
+
+ <p>Cada método mantém um laço de repetição que solicita o dado ao usuário até que
+ o valor digitado atenda às regras estabelecidas. Isso evita que informações
+ inválidas cheguem às classes de domínio.</p>
+
+ <p>Todos os métodos são estáticos e não dependem de instância, podendo ser
+ chamados diretamente como Validador.validarNome(scanner).</p>
+
+*/
 public class Validador {
 
-    /**
-     * Lê e valida um nome do console.
-     *
-     * <p>Critérios: não vazio e com pelo menos 3 caracteres.</p>
-     *
-     * @param scanner instância de {@link Scanner} para leitura da entrada
-     * @return nome válido digitado pelo usuário
-     */
+/*
+ Lê e valida um nome do console.
+
+ <p>Critérios: não vazio e com pelo menos 3 caracteres.</p>
+
+
+*/
     public static String validarNome(Scanner scanner) {
         String nome;
         do {
@@ -33,14 +33,13 @@ public class Validador {
         return nome;
     }
 
-    /**
-     * Lê e valida um endereço de e-mail do console.
-     *
-     * <p>Critérios: deve conter o caractere '@' e um ponto '.'.</p>
-     *
-     * @param scanner instância de {@link Scanner} para leitura da entrada
-     * @return e-mail válido digitado pelo usuário
-     */
+/*
+ Lê e valida um endereço de e-mail do console.
+
+ <p>Critérios: deve conter o caractere '@' e um ponto '.'.</p>
+
+
+*/
     public static String validarEmail(Scanner scanner) {
         String email;
         do {
@@ -53,14 +52,13 @@ public class Validador {
         return email;
     }
 
-    /**
-     * Lê e valida um número de telefone do console.
-     *
-     * <p>Critérios: não vazio e com pelo menos 8 caracteres.</p>
-     *
-     * @param scanner instância de {@link Scanner} para leitura da entrada
-     * @return telefone válido digitado pelo usuário
-     */
+/*
+ Lê e valida um número de telefone do console.
+
+ <p>Critérios: não vazio e com pelo menos 8 caracteres.</p>
+
+
+*/
     public static String validarTelefone(Scanner scanner) {
         String telefone;
         do {
@@ -73,14 +71,13 @@ public class Validador {
         return telefone;
     }
 
-    /**
-     * Lê e valida uma senha do console.
-     *
-     * <p>Critérios: deve ter pelo menos 4 caracteres.</p>
-     *
-     * @param scanner instância de {@link Scanner} para leitura da entrada
-     * @return senha válida digitada pelo usuário
-     */
+/*
+ Lê e valida uma senha do console.
+
+ <p>Critérios: deve ter pelo menos 4 caracteres.</p>
+
+
+*/
     public static String validarSenha(Scanner scanner) {
         String senha;
         do {
@@ -93,14 +90,13 @@ public class Validador {
         return senha;
     }
 
-    /**
-     * Lê e valida um endereço residencial do console.
-     *
-     * <p>Critérios: não nulo, não vazio e com pelo menos 5 caracteres.</p>
-     *
-     * @param scanner instância de {@link Scanner} para leitura da entrada
-     * @return endereço válido digitado pelo usuário
-     */
+/*
+ Lê e valida um endereço residencial do console.
+
+ <p>Critérios: não nulo, não vazio e com pelo menos 5 caracteres.</p>
+
+
+*/
     public static String validarEndereco(Scanner scanner) {
         String endereco;
         do {
@@ -113,14 +109,13 @@ public class Validador {
         return endereco;
     }
 
-    /**
-     * Lê e valida o modelo do veículo do motorista.
-     *
-     * <p>Critérios: não vazio e com pelo menos 3 caracteres.</p>
-     *
-     * @param scanner instância de {@link Scanner} para leitura da entrada
-     * @return modelo do veículo válido digitado pelo usuário
-     */
+/*
+ Lê e valida o modelo do veículo do motorista.
+
+ <p>Critérios: não vazio e com pelo menos 3 caracteres.</p>
+
+
+*/
     public static String validarModeloVeiculo(Scanner scanner) {
         String modelo;
         do {
