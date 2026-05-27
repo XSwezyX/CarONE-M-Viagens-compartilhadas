@@ -13,6 +13,25 @@ public class Motorista extends Usuario {
     }
 
     // ─────────────────────────────────────────
+    //  UTILITÁRIO — lê inteiro com intervalo válido
+    // ─────────────────────────────────────────
+
+    private int lerOpcao(Scanner scanner, int min, int max) {
+        int valor = -1;
+        while (valor < min || valor > max) {
+            try {
+                valor = Integer.parseInt(scanner.nextLine().trim());
+                if (valor < min || valor > max) {
+                    System.out.println("Opção inválida! Digite entre " + min + " e " + max + ".");
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Entrada inválida! Digite um número.");
+            }
+        }
+        return valor;
+    }
+
+    // ─────────────────────────────────────────
     //  CADASTRAR VIAGEM
     // ─────────────────────────────────────────
 
@@ -22,12 +41,10 @@ public class Motorista extends Usuario {
         motorista.listarLocais(locais);
 
         System.out.print("Selecione o local de PARTIDA: ");
-        int idxPartida = scanner.nextInt() - 1;
-        scanner.nextLine();
+        int idxPartida = lerOpcao(scanner, 1, locais.size()) - 1;
 
         System.out.print("Selecione o local de DESTINO: ");
-        int idxDestino = scanner.nextInt() - 1;
-        scanner.nextLine();
+        int idxDestino = lerOpcao(scanner, 1, locais.size()) - 1;
 
         if (idxPartida == idxDestino) {
             System.out.println("Partida e destino não podem ser iguais!");
@@ -38,34 +55,38 @@ public class Motorista extends Usuario {
         trajeto.add(locais.get(idxPartida));
 
         System.out.print("Deseja adicionar paradas? (1-Sim / 2-Não): ");
-        int addParada = scanner.nextInt();
-        scanner.nextLine();
+        int addParada = lerOpcao(scanner, 1, 2);
 
         if (addParada == 1) {
             boolean adicionando = true;
             while (adicionando) {
                 listarLocais(locais);
                 System.out.print("Selecione a parada: ");
-                int idx = scanner.nextInt() - 1;
-                scanner.nextLine();
+                int idx = lerOpcao(scanner, 1, locais.size()) - 1;
                 trajeto.add(locais.get(idx));
                 System.out.println("Parada adicionada: " + locais.get(idx).getNome());
                 System.out.print("Adicionar mais uma? (1-Sim / 2-Não): ");
-                int mais = scanner.nextInt();
-                scanner.nextLine();
+                int mais = lerOpcao(scanner, 1, 2);
                 adicionando = (mais == 1);
             }
         }
 
         trajeto.add(locais.get(idxDestino));
 
-        System.out.print("Número de lugares disponíveis: ");
-        int lugares = scanner.nextInt();
-        scanner.nextLine();
+        // BUG CORRIGIDO: vagas precisam ser >= 1
+        int lugares = 0;
+        while (lugares < 1) {
+            System.out.print("Número de lugares disponíveis (mínimo 1): ");
+            try {
+                lugares = Integer.parseInt(scanner.nextLine().trim());
+                if (lugares < 1) System.out.println("Deve haver pelo menos 1 lugar disponível.");
+            } catch (NumberFormatException e) {
+                System.out.println("Entrada inválida! Digite um número.");
+            }
+        }
 
         System.out.print("Aceitar passageiros? (1-Sim / 2-Não): ");
-        boolean aceita = (scanner.nextInt() == 1);
-        scanner.nextLine();
+        boolean aceita = (lerOpcao(scanner, 1, 2) == 1);
 
         Viagem viagem = new Viagem(motorista, trajeto, lugares, aceita);
         viagens.add(viagem);
@@ -97,8 +118,8 @@ public class Motorista extends Usuario {
         }
 
         System.out.print("Selecione a viagem: ");
-        int idx = scanner.nextInt() - 1;
-        scanner.nextLine();
+        // BUG CORRIGIDO: índice validado com lerOpcao
+        int idx = lerOpcao(scanner, 1, agendadas.size()) - 1;
         Viagem viagem = agendadas.get(idx);
 
         ArrayList<Reserva> confirmadas = new ArrayList<>();
@@ -120,14 +141,9 @@ public class Motorista extends Usuario {
     //  RESPONDER SOLICITAÇÕES PENDENTES
     // ─────────────────────────────────────────
 
-    /**
-     * Exibe todas as solicitações de carona pendentes nas viagens agendadas
-     * do motorista e permite aceitar ou recusar cada uma individualmente.
-     */
     public void responderSolicitacoes(Motorista motorista, Scanner scanner) {
         System.out.println("\n=== Solicitações de Carona Pendentes ===");
 
-        // Coleta todas as reservas pendentes das viagens agendadas do motorista
         ArrayList<Reserva> pendentes = new ArrayList<>();
         for (Viagem v : motorista.getViagens()) {
             if (v.getStatus().equals("agendada")) {
@@ -150,8 +166,7 @@ public class Motorista extends Usuario {
             System.out.println("  Embarque   : " + r.getPontoEmbarque().getNome());
             System.out.println("  Desembarque: " + r.getPontoDesembarque().getNome());
             System.out.print("  Aceitar? (1-Sim / 2-Não): ");
-            int escolha = scanner.nextInt();
-            scanner.nextLine();
+            int escolha = lerOpcao(scanner, 1, 2);
 
             if (escolha == 1) {
                 boolean aceito = r.getViagem().aceitarSolicitacao(r);
@@ -169,7 +184,8 @@ public class Motorista extends Usuario {
     //  VER AVALIAÇÕES RECEBIDAS
     // ─────────────────────────────────────────
 
-    public void verAvaliacoes(Motorista motorista, Scanner scanner) {
+    // BUG CORRIGIDO: parâmetro Scanner removido (nunca foi usado)
+    public void verAvaliacoes(Motorista motorista) {
         System.out.println("\n=== Minhas Avaliações ===");
 
         ArrayList<Avaliacao> avs = motorista.getAvaliacoesRecebidas();
@@ -190,10 +206,6 @@ public class Motorista extends Usuario {
     //  CONCLUIR VIAGEM (+ avaliação imediata)
     // ─────────────────────────────────────────
 
-    /**
-     * Conclui a viagem selecionada e, logo em seguida, oferece ao motorista
-     * a oportunidade de avaliar cada passageiro confirmado ali mesmo.
-     */
     public void concluirViagem(Motorista motorista, Scanner scanner,
                                ArrayList<Avaliacao> avaliacoes) {
         System.out.println("\n=== Concluir Viagem ===");
@@ -213,14 +225,13 @@ public class Motorista extends Usuario {
         }
 
         System.out.print("Selecione a viagem para concluir: ");
-        int idx = scanner.nextInt() - 1;
-        scanner.nextLine();
+        // BUG CORRIGIDO: índice validado
+        int idx = lerOpcao(scanner, 1, agendadas.size()) - 1;
 
         Viagem viagem = agendadas.get(idx);
         viagem.concluir();
         System.out.println("Viagem concluída com sucesso!");
 
-        // Avalia passageiros imediatamente após concluir
         ArrayList<Reserva> confirmados = new ArrayList<>();
         for (Reserva r : viagem.getReservas()) {
             if (r.isConfirmada()) confirmados.add(r);
@@ -232,8 +243,7 @@ public class Motorista extends Usuario {
         }
 
         System.out.print("\nDeseja avaliar os passageiros desta viagem agora? (1-Sim / 2-Não): ");
-        if (scanner.nextInt() == 2) { scanner.nextLine(); return; }
-        scanner.nextLine();
+        if (lerOpcao(scanner, 1, 2) == 2) return;
 
         avaliarPassageirosDeViagem(motorista, scanner, viagem, confirmados, avaliacoes);
     }
@@ -242,23 +252,19 @@ public class Motorista extends Usuario {
     //  AVALIAR PASSAGEIROS DE VIAGEM ANTERIOR
     // ─────────────────────────────────────────
 
-    /**
-     * Fallback: permite avaliar passageiros de viagens já concluídas anteriormente
-     * (caso o motorista tenha pulado a avaliação na hora de concluir).
-     */
     public void avaliarViagemMotorista(Motorista motorista, Scanner scanner,
                                        ArrayList<Viagem> todasViagens,
                                        ArrayList<Avaliacao> avaliacoes) {
         System.out.println("\n=== Avaliar Passageiros de Viagem Anterior ===");
 
-        // Encontra viagens concluídas que ainda têm passageiros não avaliados
         ArrayList<Viagem> disponiveis = new ArrayList<>();
         for (Viagem v : motorista.getViagens()) {
             if (!v.getStatus().equals("concluida")) continue;
             for (Reserva r : v.getReservas()) {
-                if (r.isConfirmada() && !v.motoristJaAvaliouPassageiro(r.getPassageiro())) {
+                // BUG CORRIGIDO: nome do método corrigido (era motoristJaAvaliouPassageiro)
+                if (r.isConfirmada() && !v.motoristaJaAvaliouPassageiro(r.getPassageiro())) {
                     disponiveis.add(v);
-                    break; // basta um passageiro pendente para incluir a viagem
+                    break;
                 }
             }
         }
@@ -276,18 +282,14 @@ public class Motorista extends Usuario {
         }
 
         System.out.print("Selecione a viagem: ");
-        int idx = scanner.nextInt() - 1;
-        scanner.nextLine();
-
-        if (idx < 0 || idx >= disponiveis.size()) {
-            System.out.println("Opção inválida!");
-            return;
-        }
+        // BUG CORRIGIDO: índice validado
+        int idx = lerOpcao(scanner, 1, disponiveis.size()) - 1;
 
         Viagem viagem = disponiveis.get(idx);
         ArrayList<Reserva> pendentes = new ArrayList<>();
         for (Reserva r : viagem.getReservas()) {
-            if (r.isConfirmada() && !viagem.motoristJaAvaliouPassageiro(r.getPassageiro())) {
+            // BUG CORRIGIDO: nome do método corrigido
+            if (r.isConfirmada() && !viagem.motoristaJaAvaliouPassageiro(r.getPassageiro())) {
                 pendentes.add(r);
             }
         }
@@ -299,10 +301,6 @@ public class Motorista extends Usuario {
     //  HELPER PRIVADO — avalia lista de passageiros de uma viagem
     // ─────────────────────────────────────────
 
-    /**
-     * Percorre cada passageiro da lista e coleta nota + comentário do motorista.
-     * Reutilizado tanto em concluirViagem quanto em avaliarViagemMotorista.
-     */
     private void avaliarPassageirosDeViagem(Motorista motorista, Scanner scanner,
                                             Viagem viagem, ArrayList<Reserva> passageiros,
                                             ArrayList<Avaliacao> avaliacoes) {
@@ -312,13 +310,7 @@ public class Motorista extends Usuario {
             System.out.println("\nPassageiro: " + passageiro.getNome());
 
             System.out.print("Nota (1 a 5): ");
-            int nota = scanner.nextInt();
-            scanner.nextLine();
-            while (nota < 1 || nota > 5) {
-                System.out.println("Nota inválida! Digite entre 1 e 5.");
-                nota = scanner.nextInt();
-                scanner.nextLine();
-            }
+            int nota = lerOpcao(scanner, 1, 5);
 
             System.out.print("Comentário (opcional, Enter para pular): ");
             String comentario = scanner.nextLine();

@@ -3,7 +3,7 @@ import java.util.Scanner;
 
 public class Menu {
 
-    public Scanner scanner;
+    private Scanner scanner;
     private ArrayList<Motorista>  motoristas;
     private ArrayList<Passageiro> passageiros;
     private ArrayList<Local>      locais;
@@ -171,7 +171,7 @@ public class Menu {
                 case 3: motorista.responderSolicitacoes(motorista, scanner);                             break;
                 case 4: motorista.concluirViagem(motorista, scanner, avaliacoes);                        break;
                 case 5: motorista.avaliarViagemMotorista(motorista, scanner, viagens, avaliacoes);       break;
-                case 6: motorista.verAvaliacoes(motorista, scanner);                                     break;
+                case 6: motorista.verAvaliacoes(motorista);                                             break;
                 case 7: break;
                 default: System.out.println("Opção inválida!");
             }

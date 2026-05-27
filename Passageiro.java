@@ -8,6 +8,25 @@ public class Passageiro extends Usuario {
     }
 
     // ─────────────────────────────────────────
+    //  UTILITÁRIO — lê inteiro com intervalo válido
+    // ─────────────────────────────────────────
+
+    private int lerOpcao(Scanner scanner, int min, int max) {
+        int valor = -1;
+        while (valor < min || valor > max) {
+            try {
+                valor = Integer.parseInt(scanner.nextLine().trim());
+                if (valor < min || valor > max) {
+                    System.out.println("Opção inválida! Digite entre " + min + " e " + max + ".");
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Entrada inválida! Digite um número.");
+            }
+        }
+        return valor;
+    }
+
+    // ─────────────────────────────────────────
     //  VER RESERVAS
     // ─────────────────────────────────────────
 
@@ -35,12 +54,11 @@ public class Passageiro extends Usuario {
         listarLocais(locais);
 
         System.out.print("Selecione sua ORIGEM: ");
-        int idxOrigem = scanner.nextInt() - 1;
-        scanner.nextLine();
+        // BUG CORRIGIDO: índice validado com lerOpcao
+        int idxOrigem = lerOpcao(scanner, 1, locais.size()) - 1;
 
         System.out.print("Selecione seu DESTINO: ");
-        int idxDestino = scanner.nextInt() - 1;
-        scanner.nextLine();
+        int idxDestino = lerOpcao(scanner, 1, locais.size()) - 1;
 
         if (idxOrigem == idxDestino) {
             System.out.println("Origem e destino não podem ser iguais!");
@@ -70,12 +88,11 @@ public class Passageiro extends Usuario {
         }
 
         System.out.print("\nDeseja solicitar uma carona? (1-Sim / 2-Não): ");
-        if (scanner.nextInt() == 2) { scanner.nextLine(); return; }
-        scanner.nextLine();
+        if (lerOpcao(scanner, 1, 2) == 2) return;
 
         System.out.print("Selecione a viagem: ");
-        int idx = scanner.nextInt() - 1;
-        scanner.nextLine();
+        // BUG CORRIGIDO: índice validado
+        int idx = lerOpcao(scanner, 1, encontradas.size()) - 1;
         Viagem viagem = encontradas.get(idx);
 
         Local embarque    = viagem.pontoMaisProximo(origem);
@@ -86,10 +103,8 @@ public class Passageiro extends Usuario {
         System.out.println("Motorista: " + viagem.getMotorista().getNome());
 
         System.out.print("\nConfirmar solicitação? (1-Sim / 2-Não): ");
-        if (scanner.nextInt() == 2) { scanner.nextLine(); return; }
-        scanner.nextLine();
+        if (lerOpcao(scanner, 1, 2) == 2) return;
 
-        // Cria reserva com status "pendente" — aguarda aprovação do motorista
         viagem.solicitarReserva(passageiro, embarque, desembarque);
 
         System.out.println("\nSolicitação enviada com sucesso!");
@@ -126,18 +141,12 @@ public class Passageiro extends Usuario {
         }
 
         System.out.print("Selecione a viagem: ");
-        int idx = scanner.nextInt() - 1;
-        scanner.nextLine();
+        // BUG CORRIGIDO: índice validado
+        int idx = lerOpcao(scanner, 1, paraAvaliar.size()) - 1;
         Viagem viagem = paraAvaliar.get(idx);
 
         System.out.print("Nota (1 a 5): ");
-        int nota = scanner.nextInt();
-        scanner.nextLine();
-        while (nota < 1 || nota > 5) {
-            System.out.println("Nota inválida! Digite entre 1 e 5.");
-            nota = scanner.nextInt();
-            scanner.nextLine();
-        }
+        int nota = lerOpcao(scanner, 1, 5);
 
         System.out.print("Comentário (opcional, Enter para pular): ");
         String comentario = scanner.nextLine();

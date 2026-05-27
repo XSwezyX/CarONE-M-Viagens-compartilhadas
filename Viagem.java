@@ -150,7 +150,7 @@ public class Viagem {
     }
 
     /** Verifica se o motorista já avaliou determinado passageiro nesta viagem. */
-    public boolean motoristJaAvaliouPassageiro(Usuario passageiro) {
+    public boolean motoristaJaAvaliouPassageiro(Usuario passageiro) {
         return emailsPassageirosAvaliados.contains(passageiro.getEmail());
     }
 
