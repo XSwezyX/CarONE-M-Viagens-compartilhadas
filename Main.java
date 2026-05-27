@@ -1,7 +1,23 @@
 import java.util.ArrayList;
 
+/**
+ * Henrique Haramaki Mataveli RA:10752924 Moabe Guedes RA: 10748053
+ * Ponto de entrada do sistema CarONE-M — Viagens Compartilhadas.
+ *
+ * <p>Inicializa todas as coleções de dados (locais, motoristas, passageiros, viagens e
+ * avaliações), popula o sistema com dados simulados representando um estado inicial
+ * realista e entrega o controle ao {@link Menu} para interação via console.</p>
+ *
+ * <p>Como o sistema não utiliza persistência em arquivos ou banco de dados, toda a
+ * "base de dados" vive na memória e é recriada a cada execução.</p>
+ */
 public class Main {
 
+    /**
+     * Método principal. Cria as listas globais, preenche com dados simulados e inicia o menu.
+     *
+     * @param args argumentos de linha de comando (não utilizados)
+     */
     public static void main(String[] args) {
         ArrayList<Motorista>  motoristas  = new ArrayList<>();
         ArrayList<Passageiro> passageiros = new ArrayList<>();
@@ -16,6 +32,19 @@ public class Main {
         menu.iniciar();
     }
 
+    // ─────────────────────────────────────────
+    //  LOCAIS
+    // ─────────────────────────────────────────
+
+    /**
+     * Cadastra os pontos geográficos disponíveis no sistema.
+     *
+     * <p>As coordenadas (x, y) representam posições em um plano cartesiano simplificado,
+     * onde a unidade equivale aproximadamente a 1 km. Os bairros e avenidas referenciados
+     * são inspirados em São Paulo, mas as distâncias são fictícias para fins didáticos.</p>
+     *
+     * @param locais lista onde os locais serão adicionados
+     */
     private static void inicializarLocais(ArrayList<Local> locais) {
         locais.add(new Local("Paulista",      "Av. Paulista, 900",        0,   0));
         locais.add(new Local("Pinheiros",     "Largo da Batata",         -5,   2));
@@ -29,13 +58,37 @@ public class Main {
         locais.add(new Local("São Bernardo",  "Av. Kennedy, 200",         6, -12));
     }
 
+    // ─────────────────────────────────────────
+    //  DADOS SIMULADOS
+    // ─────────────────────────────────────────
+
+    /**
+     * Popula o sistema com usuários, viagens e avaliações simulados.
+     *
+     * <p>Os dados representam dois grupos distintos:</p>
+     * <ul>
+     *   <li><strong>Viagens concluídas (1–4):</strong> com passageiros confirmados e avaliações
+     *       já registradas, usadas para demonstrar o histórico e a funcionalidade de avaliação;</li>
+     *   <li><strong>Viagens agendadas (5–11):</strong> abertas para busca e solicitação
+     *       durante a execução do programa, incluindo variações como viagem lotada (v7)
+     *       e viagem que não aceita passageiros (v8).</li>
+     * </ul>
+     *
+     * <p>Credenciais de teste: todos os usuários possuem senha {@code "1234"}.</p>
+     *
+     * @param motoristas  lista onde os motoristas serão adicionados
+     * @param passageiros lista onde os passageiros serão adicionados
+     * @param locais      lista de locais já inicializada por {@link #inicializarLocais}
+     * @param viagens     lista onde as viagens serão adicionadas
+     * @param avaliacoes  lista onde as avaliações serão adicionadas
+     */
     private static void inicializarDados(ArrayList<Motorista>  motoristas,
                                          ArrayList<Passageiro> passageiros,
                                          ArrayList<Local>      locais,
                                          ArrayList<Viagem>     viagens,
                                          ArrayList<Avaliacao>  avaliacoes) {
 
-        // Motoristas
+        // ── Motoristas ──────────────────────────────────────────────────────────
         Motorista joao  = new Motorista("João Silva",   "joao@gmail.com",  "11999991111", "1234", "Rua A, 10", "Honda Civic");
         Motorista pedro = new Motorista("Pedro Lima",   "pedro@gmail.com", "11988882222", "1234", "Rua B, 20", "VW Gol");
         Motorista carla = new Motorista("Carla Mendes", "carla@gmail.com", "11977773333", "1234", "Rua C, 30", "Toyota Corolla");
@@ -46,7 +99,7 @@ public class Main {
         motoristas.add(carla);
         motoristas.add(lucas);
 
-        // Passageiros
+        // ── Passageiros ─────────────────────────────────────────────────────────
         Passageiro maria    = new Passageiro("Maria Souza",      "maria@gmail.com",    "11955556666", "1234", "Rua E, 50");
         Passageiro ana      = new Passageiro("Ana Costa",        "ana@gmail.com",      "11944445555", "1234", "Rua F, 60");
         Passageiro bruno    = new Passageiro("Bruno Alves",      "bruno@gmail.com",    "11933334444", "1234", "Rua G, 70");
@@ -61,7 +114,7 @@ public class Main {
         passageiros.add(fernanda);
         passageiros.add(gustavo);
 
-        // Locais
+        // ── Atalhos para os locais (facilita leitura do código abaixo) ──────────
         Local paulista    = locais.get(0);
         Local pinheiros   = locais.get(1);
         Local vilaMad     = locais.get(2);
@@ -73,7 +126,7 @@ public class Main {
         Local santoAndre  = locais.get(8);
         Local saoBernardo = locais.get(9);
 
-        // Viagem 1 — João levou Maria (concluída)
+        // ── Viagem 1: João levou Maria — Paulista → Itaim → Moema (concluída) ───
         ArrayList<Local> t1 = new ArrayList<>();
         t1.add(paulista); t1.add(itaim); t1.add(moema);
         Viagem v1 = new Viagem(joao, t1, 3, true);
@@ -87,7 +140,7 @@ public class Main {
         avaliacoes.add(av1);
         v1.registrarAvaliacao(av1);
 
-        // Viagem 2 — Pedro levou Ana (concluída)
+        // ── Viagem 2: Pedro levou Ana — Santana → Consolação → Paulista (concluída) ──
         ArrayList<Local> t2 = new ArrayList<>();
         t2.add(santana); t2.add(consolacao); t2.add(paulista);
         Viagem v2 = new Viagem(pedro, t2, 2, true);
@@ -101,7 +154,7 @@ public class Main {
         avaliacoes.add(av2);
         v2.registrarAvaliacao(av2);
 
-        // Viagem 3 — Carla levou Bruno e Julia (concluída)
+        // ── Viagem 3: Carla levou Bruno e Julia — Pinheiros → Consolação → Tatuapé (concluída) ──
         ArrayList<Local> t3 = new ArrayList<>();
         t3.add(pinheiros); t3.add(consolacao); t3.add(tatuape);
         Viagem v3 = new Viagem(carla, t3, 4, true);
@@ -118,7 +171,7 @@ public class Main {
         v3.registrarAvaliacao(av3a);
         v3.registrarAvaliacao(av3b);
 
-        // Viagem 4 — Lucas levou Fernanda (concluída)
+        // ── Viagem 4: Lucas levou Fernanda — Santo André → São Bernardo → Moema (concluída) ──
         ArrayList<Local> t4 = new ArrayList<>();
         t4.add(santoAndre); t4.add(saoBernardo); t4.add(moema);
         Viagem v4 = new Viagem(lucas, t4, 3, true);
@@ -132,19 +185,19 @@ public class Main {
         avaliacoes.add(av4);
         v4.registrarAvaliacao(av4);
 
-        // Viagem 5 — João (agendada, aceita)
+        // ── Viagem 5: João — Vila Madalena → Pinheiros → Itaim (agendada, aceita) ──
         ArrayList<Local> t5 = new ArrayList<>();
         t5.add(vilaMad); t5.add(pinheiros); t5.add(itaim);
         Viagem v5 = new Viagem(joao, t5, 2, true);
         viagens.add(v5); joao.adicionarViagem(v5);
 
-        // Viagem 6 — Pedro (agendada, aceita)
+        // ── Viagem 6: Pedro — Tatuapé → Paulista → Moema (agendada, aceita) ──
         ArrayList<Local> t6 = new ArrayList<>();
         t6.add(tatuape); t6.add(paulista); t6.add(moema);
         Viagem v6 = new Viagem(pedro, t6, 3, true);
         viagens.add(v6); pedro.adicionarViagem(v6);
 
-        // Viagem 7 — Carla (agendada, lotada)
+        // ── Viagem 7: Carla — Santana → Consolação → Itaim (agendada, 1 lugar, lotada) ──
         ArrayList<Local> t7 = new ArrayList<>();
         t7.add(santana); t7.add(consolacao); t7.add(itaim);
         Viagem v7 = new Viagem(carla, t7, 1, true);
@@ -153,25 +206,25 @@ public class Main {
         gustavo.adicionarReserva(r7);
         viagens.add(v7); carla.adicionarViagem(v7);
 
-        // Viagem 8 — Lucas (agendada, não aceita passageiros)
+        // ── Viagem 8: Lucas — Vila Madalena → Pinheiros → Paulista (agendada, não aceita passageiros) ──
         ArrayList<Local> t8 = new ArrayList<>();
         t8.add(vilaMad); t8.add(pinheiros); t8.add(paulista);
         Viagem v8 = new Viagem(lucas, t8, 2, false);
         viagens.add(v8); lucas.adicionarViagem(v8);
 
-        // Viagem 9 — Carla (agendada, aceita)
+        // ── Viagem 9: Carla — Moema → Itaim → Consolação (agendada, aceita) ──
         ArrayList<Local> t9 = new ArrayList<>();
         t9.add(moema); t9.add(itaim); t9.add(consolacao);
         Viagem v9 = new Viagem(carla, t9, 3, true);
         viagens.add(v9); carla.adicionarViagem(v9);
 
-        // Viagem 10 — João (agendada, aceita)
+        // ── Viagem 10: João — São Bernardo → Santo André → Tatuapé (agendada, aceita) ──
         ArrayList<Local> t10 = new ArrayList<>();
         t10.add(saoBernardo); t10.add(santoAndre); t10.add(tatuape);
         Viagem v10 = new Viagem(joao, t10, 4, true);
         viagens.add(v10); joao.adicionarViagem(v10);
 
-        // Viagem 11 — Carla (agendada, aceita)
+        // ── Viagem 11: Carla — Pinheiros → Consolação → Tatuapé (agendada, aceita) ──
         ArrayList<Local> t11 = new ArrayList<>();
         t11.add(pinheiros); t11.add(consolacao); t11.add(tatuape);
         Viagem v11 = new Viagem(carla, t11, 3, true);
