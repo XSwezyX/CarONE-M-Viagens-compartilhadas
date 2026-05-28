@@ -1,9 +1,20 @@
 import java.util.Scanner;
 
+/**
+ *  * Henrique Haramaki Mataveli RA:10752924 Moabe Guedes RA:10748053
+ * Classe auxiliar de validação de campos lidos via console.
+ *
+ * O Validador centraliza as regras de entrada mínima para o cadastro de usuários,
+ * garantindo maior consistência e reciclabilidade do código.
+ */
 public class Validador {
 
-    // Validador de campos do usuário usado durante cadastro.
-
+    /**
+     * Lê e valida um nome completo do usuário.
+     *
+     * O método repete a leitura até receber um nome não em branco com ao menos
+     * três caracteres.
+     */
     public static String validarNome(Scanner scanner) {
 
         String nome;
@@ -27,6 +38,8 @@ public class Validador {
 
     /**
      * Lê email até encontrar um formato mínimo válido.
+     *
+     * A validação é simples e verifica apenas a presença de '@' e '.'.
      */
     public static String validarEmail(Scanner scanner) {
 
@@ -53,6 +66,8 @@ public class Validador {
 
     /**
      * Lê telefone até que seja considerado válido.
+     *
+     * O critério é baseado em mínimo de caracteres para evitar entradas muito curtas.
      */
     public static String validarTelefone(Scanner scanner) {
 
@@ -79,6 +94,9 @@ public class Validador {
 
     /**
      * Lê senha e valida tamanho mínimo.
+     *
+     * O sistema não usa criptografia, então a senha é armazenada em texto puro.
+     * Esta classe apenas garante que o tamanho mínimo seja respeitado.
      */
     public static String validarSenha(Scanner scanner) {
 
@@ -103,6 +121,8 @@ public class Validador {
 
     /**
      * Lê endereço até obter uma string não vazia e com tamanho mínimo.
+     *
+     * O endereço é uma informação obrigatória para todos os usuários do sistema.
      */
     public static String validarEndereco(Scanner scanner) {
 
@@ -127,6 +147,8 @@ public class Validador {
 
     /**
      * Lê o modelo do veículo para cadastro de motorista.
+     *
+     * Motoristas precisam fornecer o modelo do carro para identificação.
      */
     public static String validarModeloVeiculo(Scanner scanner) {
 

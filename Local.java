@@ -1,7 +1,15 @@
+/**
+ *  * Henrique Haramaki Mataveli RA:10752924 Moabe Guedes RA:10748053
+ * Representa um ponto geográfico utilizado no sistema de caronas.
+ *
+ * Cada local possui nome, endereço e coordenadas bidimensionais simples
+ * que permitem calcular distâncias e escolher pontos de embarque/desembarque.
+ */
 public class Local {
-    // Local com nome, endereço e coordenadas no plano.
+    // Nome e descrição textual do local.
     private String nome;
     private String endereco;
+    // Coordenadas no plano cartesiano, usadas apenas para estimativas de distância.
     private double x;
     private double y;
 
@@ -17,6 +25,9 @@ public class Local {
 
     /**
      * Calcula a distância euclidiana entre este local e outro local.
+     *
+     * Esta métrica é usada para estimar se um ponto está próximo o suficiente
+     * para ser considerado ponto de embarque ou desembarque.
      */
     public double distancia(Local outro) {
         double soma = Math.pow(outro.x - this.x, 2) + Math.pow(outro.y - this.y, 2);

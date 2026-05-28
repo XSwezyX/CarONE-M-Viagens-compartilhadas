@@ -1,9 +1,18 @@
 import java.util.ArrayList;
 
+/**
+ * Henrique Haramaki Mataveli RA:10752924 Moabe Guedes RA:10748053
+ * Entrada principal do sistema CarONE-M.
+ *
+ * Esta classe monta uma simulação inicial contendo motoristas, passageiros,
+ * pontos de embarque e desembarque, viagens com diferentes estados e avaliações.
+ * Ela também cria a instância de Menu que gerencia a navegação interativa do usuário.
+ */
 public class Main {
 
     /**
-     * Ponto de entrada do sistema, inicializa dados e inicia o menu.
+     * Ponto de entrada do sistema, responsável por inicializar as coleções
+     * usadas em toda a aplicação e iniciar o menu principal.
      */
     public static void main(String[] args) {
         ArrayList<Motorista>  motoristas  = new ArrayList<>();
@@ -12,15 +21,20 @@ public class Main {
         ArrayList<Viagem>     viagens     = new ArrayList<>();
         ArrayList<Avaliacao>  avaliacoes  = new ArrayList<>();
 
+        // Preparação dos dados fixos que serão usados como base na simulação.
         inicializarLocais(locais);
         inicializarDados(motoristas, passageiros, locais, viagens, avaliacoes);
 
+        // Cria o menu principal com todas as coleções de domínio e inicia o loop.
         Menu menu = new Menu(motoristas, passageiros, locais, viagens, avaliacoes);
         menu.iniciar();
     }
 
     /**
      * Cria locais fixos usados na simulação inicial.
+     *
+     * Esses locais representam pontos fictícios na cidade e são usados para
+     * compor trajetos e calcular proximidade de embarque/desembarque.
      */
     private static void inicializarLocais(ArrayList<Local> locais) {
         locais.add(new Local("Paulista",      "Av. Paulista, 900",        0,   0));
@@ -37,6 +51,14 @@ public class Main {
 
     /**
      * Cria usuários, viagens, reservas e avaliações de exemplo.
+     *
+     * Esta rotina monta cenários de uso variados, incluindo:
+     * - viagens já concluídas com avaliações registradas,
+     * - viagens agendadas que aceitam ou não novos passageiros,
+     * - viagens com vagas preenchidas ou ainda abertas.
+     *
+     * O objetivo é prover um conjunto de dados inicial que permita testar
+     * o fluxo completo do sistema sem necessidade de cadastro prévio.
      */
     private static void inicializarDados(ArrayList<Motorista>  motoristas,
                                          ArrayList<Passageiro> passageiros,

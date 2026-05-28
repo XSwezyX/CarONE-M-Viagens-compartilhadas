@@ -1,10 +1,21 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ *  * Henrique Haramaki Mataveli RA:10752924 Moabe Guedes RA:10748053
+ * Representa o usuário do tipo motorista no sistema.
+ *
+ * Esta classe adiciona comportamentos próprios de motorista, como:
+ * - cadastrar novas viagens,
+ * - gerenciar solicitações de carona,
+ * - concluir viagens,
+ * - avaliar passageiros e consultar suas avaliações recebidas.
+ */
 public class Motorista extends Usuario {
 
-    // Motorista pode cadastrar viagens, responder solicitações e avaliar passageiros.
+    // Modelo de veículo usado pelo motorista para identificar o carro.
     private String modeloVeiculo;
+    // Lista de viagens criadas pelo motorista.
     private ArrayList<Viagem> viagens = new ArrayList<>();
 
     /**
@@ -20,6 +31,13 @@ public class Motorista extends Usuario {
     //  CADASTRAR VIAGEM
     // ─────────────────────────────────────────
 
+    /**
+     * Permite ao motorista cadastrar uma nova viagem.
+     *
+     * O fluxo inclui seleção de partida e destino, opção de paradas intermediárias,
+     * definição do número de lugares e indicação se o motorista aceita novos passageiros.
+     * Ao final, a nova viagem é adicionada às listas globais e ao histórico do motorista.
+     */
     public void cadastrarViagem(Motorista motorista, Scanner scanner,
                                 ArrayList<Local> locais, ArrayList<Viagem> viagens) {
         System.out.println("\n=== Cadastrar Viagem ===");
@@ -83,6 +101,12 @@ public class Motorista extends Usuario {
     //  VER PASSAGEIROS
     // ─────────────────────────────────────────
 
+    /**
+     * Exibe os passageiros confirmados nas viagens agendadas do motorista.
+     *
+     * Apenas reservas com status confirmado são mostradas, permitindo ao motorista
+     * verificar quem irá embarcar em cada viagem ainda não concluída.
+     */
     public void verPassageiros(Motorista motorista, Scanner scanner) {
         System.out.println("\n=== Passageiros das Minhas Viagens ===");
 
@@ -127,6 +151,8 @@ public class Motorista extends Usuario {
     /**
      * Exibe todas as solicitações de carona pendentes nas viagens agendadas
      * do motorista e permite aceitar ou recusar cada uma individualmente.
+     *
+     * Quando aceita uma solicitação, a reserva é confirmada e a vaga é debitada.
      */
     public void responderSolicitacoes(Motorista motorista, Scanner scanner) {
         System.out.println("\n=== Solicitações de Carona Pendentes ===");
@@ -198,6 +224,12 @@ public class Motorista extends Usuario {
      * Conclui a viagem selecionada e, logo em seguida, oferece ao motorista
      * a oportunidade de avaliar cada passageiro confirmado ali mesmo.
      */
+    /**
+     * Conclui uma viagem agendada e permite avaliar seus passageiros imediatamente.
+     *
+     * Ao concluir, a viagem muda de status para concluída e o motorista pode opcionalmente
+     * avaliar cada passageiro confirmado naquela viagem.
+     */
     public void concluirViagem(Motorista motorista, Scanner scanner,
                                ArrayList<Avaliacao> avaliacoes) {
         System.out.println("\n=== Concluir Viagem ===");
@@ -249,6 +281,13 @@ public class Motorista extends Usuario {
     /**
      * Fallback: permite avaliar passageiros de viagens já concluídas anteriormente
      * (caso o motorista tenha pulado a avaliação na hora de concluir).
+     */
+    /**
+     * Permite que o motorista avalie passageiros de viagens já concluídas
+     * que ainda não receberam sua avaliação.
+     *
+     * Esta função é útil quando o motorista optou por não avaliar os passageiros
+     * imediatamente ao concluir a viagem.
      */
     public void avaliarViagemMotorista(Motorista motorista, Scanner scanner,
                                        ArrayList<Viagem> todasViagens,
@@ -306,6 +345,13 @@ public class Motorista extends Usuario {
     /**
      * Percorre cada passageiro da lista e coleta nota + comentário do motorista.
      * Reutilizado tanto em concluirViagem quanto em avaliarViagemMotorista.
+     */
+    /**
+     * Função auxiliar que percorre uma lista de reservas confirmadas e coleta
+     * avaliação para cada passageiro.
+     *
+     * As avaliações são registradas tanto na lista global de avaliações quanto
+     * no perfil do passageiro avaliado.
      */
     private void avaliarPassageirosDeViagem(Motorista motorista, Scanner scanner,
                                             Viagem viagem, ArrayList<Reserva> passageiros,

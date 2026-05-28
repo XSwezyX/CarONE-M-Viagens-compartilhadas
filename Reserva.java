@@ -1,15 +1,25 @@
+/**
+ *  * Henrique Haramaki Mataveli RA:10752924 Moabe Guedes RA:10748053
+ * Representa a reserva de um passageiro em uma viagem.
+ *
+ * Cada reserva possui pontos de embarque e desembarque, estado de aprovação
+ * e referência à viagem associada.
+ */
 public class Reserva {
 
-    // Reserva de passageiro em viagem, com pontos e situação atual.
+    // Passageiro que fez a solicitação.
     private Usuario passageiro;
+    // Ponto de embarque e desembarque escolhidos para a reserva.
     private Local pontoEmbarque;
     private Local pontoDesembarque;
-    private String status; // "pendente", "confirmada" ou "recusada"
+    // Situação atual da reserva: pendente, confirmada ou recusada.
+    private String status;
     private Viagem viagem;
 
     /**
      * Construtor padrão: cria reserva já confirmada.
-     * Mantido para compatibilidade com a inicialização de dados simulados em Main.java.
+     *
+     * Usado para representar reservas já estabelecidas no cenário de inicialização.
      */
     public Reserva(Usuario passageiro, Viagem viagem, Local pontoEmbarque, Local pontoDesembarque) {
         this(passageiro, viagem, pontoEmbarque, pontoDesembarque, "confirmada");
@@ -17,7 +27,9 @@ public class Reserva {
 
     /**
      * Construtor completo: permite definir o status inicial.
-     * Use "pendente" para solicitações que aguardam aprovação do motorista.
+     *
+     * Este construtor é usado para criar reservas pendentes que aguardam a
+     * aprovação do motorista antes de se tornarem confirmadas.
      */
     public Reserva(Usuario passageiro, Viagem viagem, Local pontoEmbarque, Local pontoDesembarque, String status) {
         this.passageiro       = passageiro;

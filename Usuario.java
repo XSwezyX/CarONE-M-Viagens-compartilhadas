@@ -1,18 +1,40 @@
 import java.util.ArrayList;
 
+/**
+ *  * Henrique Haramaki Mataveli RA:10752924 Moabe Guedes RA:10748053
+ * Classe base abstrata que representa os atributos e comportamentos comuns
+ * de usuários do sistema: motoristas e passageiros.
+ *
+ * A classe define dados pessoais, histórico de avaliações recebidas e reservas.
+ * Ela não implementa diretamente comportamentos específicos de cada tipo de usuário.
+ */
 public abstract class Usuario {
 
-    // Dados básicos e históricos compartilhados por motorista e passageiro.
+    // Dados básicos do usuário:
     protected String nome;
     protected String email;
     protected String telefone;
     protected String senha;
     protected String endereco;
+
+    // Histórico de avaliações recebidas por este usuário.
     protected ArrayList<Avaliacao> avaliacoesRecebidas = new ArrayList<>();
+
+    // Histórico de reservas associadas a este usuário.
     protected ArrayList<Reserva>   reservas            = new ArrayList<>();
 
     /**
-     * Cria usuário e valida campos essenciais.
+     * Construtor base para qualquer usuário do sistema.
+     *
+     * As validações aqui são uma primeira proteção contra valores inválidos:
+     * - nome mínimo de 3 caracteres,
+     * - email com '@' e '.',
+     * - telefone com tamanho mínimo,
+     * - senha com tamanho mínimo,
+     * - endereço preenchido.
+     *
+     * Note que não é lançado exceção para entradas inválidas; em vez disso,
+     * apenas os valores válidos são atribuídos aos campos.
      */
     public Usuario(String nome, String email, String telefone, String senha, String endereco) {
         if (nome != null && !nome.isEmpty() && nome.length() >= 3) {
@@ -33,12 +55,16 @@ public abstract class Usuario {
     }
 
     /**
-     * Indica se o usuário é motorista (sobrescrito em Motorista).
+     * Indica se o usuário é do tipo motorista.
+     *
+     * O comportamento padrão é falso, e a subclasse Motorista o sobrescreve.
      */
     public boolean ehMotorista() { return false; }
 
     /**
      * Adiciona avaliação recebida ao histórico do usuário.
+     *
+     * Avaliações podem ser recebidas tanto por motoristas quanto por passageiros.
      */
     public void receberAvaliacao(Avaliacao a) { avaliacoesRecebidas.add(a); }
 
@@ -49,6 +75,9 @@ public abstract class Usuario {
 
     /**
      * Calcula a média das avaliações recebidas.
+     *
+     * Se não houver avaliações ainda, o método devolve 0.0 para indicar
+     * que não existe média calculável.
      */
     public double getMediaAvaliacoes() {
         if (avaliacoesRecebidas.isEmpty()) return 0.0;
@@ -67,10 +96,21 @@ public abstract class Usuario {
     /**
      * Retorna viagens do usuário; usado por Motorista.
      */
+    /**
+     * Retorna a lista de viagens associadas ao usuário.
+     *
+     * A implementação padrão retorna uma lista vazia porque nem todos
+     * os usuários têm viagens diretamente associadas. Motoristas sobrescrevem isso.
+     */
     public ArrayList<Viagem> getViagens() {
         return new ArrayList<>();
     }
     
+    /**
+     * Exibe todos os locais disponíveis na tela com índice numérico.
+     *
+     * Este método é útil para menus que solicitam seleção de origem/destino.
+     */
     public void listarLocais(ArrayList<Local> locais) {
         System.out.println("Locais disponíveis:");
         for (int i = 0; i < locais.size(); i++) {

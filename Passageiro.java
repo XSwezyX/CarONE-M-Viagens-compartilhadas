@@ -1,9 +1,16 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ *  * Henrique Haramaki Mataveli RA:10752924 Moabe Guedes RA:10748053
+ * Representa o usuário do tipo passageiro.
+ *
+ * Passageiros podem buscar viagens disponíveis, solicitar caronas, consultar
+ * reservas e avaliar motoristas após viagens concluídas.
+ */
 public class Passageiro extends Usuario {
 
-    // Passageiro que busca e reserva viagens, além de avaliar motoristas.
+    // O passageiro herda todo o comportamento comum de Usuario.
     public Passageiro(String nome, String email, String telefone, String senha, String endereco) {
         super(nome, email, telefone, senha, endereco);
     }
@@ -14,6 +21,9 @@ public class Passageiro extends Usuario {
 
     /**
      * Exibe todas as reservas do passageiro com situação atual.
+     *
+     * Inclui reservas pendentes, confirmadas e recusadas, permitindo que o passageiro
+     * acompanhe o status de cada solicitação.
      */
     public void verReservas(Passageiro passageiro) {
         System.out.println("\n=== Minhas Reservas ===");
@@ -35,6 +45,10 @@ public class Passageiro extends Usuario {
 
     /**
      * Busca viagens disponíveis para origem e destino indicados, e envia solicitação.
+     *
+     * O método filtra apenas viagens que estão agendadas, que aceitam passageiros,
+     * que ainda possuem vagas e cujo trajeto cobre tanto a origem quanto o destino
+     * na ordem correta.
      */
     public void buscarEPedirCarona(Passageiro passageiro, Scanner scanner,
                                    ArrayList<Local> locais, ArrayList<Viagem> viagens) {
@@ -110,6 +124,9 @@ public class Passageiro extends Usuario {
 
     /**
      * Permite que o passageiro avalie o motorista de uma viagem concluída.
+     *
+     * O passageiro só pode avaliar viagens onde sua reserva foi confirmada,
+     * a viagem já está concluída e ele ainda não avaliou aquele motorista.
      */
     public void avaliarViagem(Passageiro passageiro, Scanner scanner,
                               ArrayList<Viagem> viagens, ArrayList<Avaliacao> avaliacoes) {

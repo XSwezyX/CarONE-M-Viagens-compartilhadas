@@ -1,6 +1,13 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ *  * Henrique Haramaki Mataveli RA:10752924 Moabe Guedes RA:10748053
+ * Classe responsável por toda a interação com o usuário via console.
+ *
+ * O menu controla o fluxo de login, cadastro e as opções específicas
+ * para motoristas e passageiros, delegando comportamentos às classes de domínio.
+ */
 public class Menu {
 
     public Scanner scanner;
@@ -28,7 +35,12 @@ public class Menu {
     // ══════════════════════════════════════════
 
     /**
-     * Exibe o menu principal e permite login ou cadastro.
+     * Exibe o menu principal em loop até que o usuário escolha sair.
+     *
+     * O método gerencia a navegação básica:
+     * - login de motorista ou passageiro,
+     * - cadastro de novos usuários,
+     * - saída do sistema.
      */
     public void iniciar() {
         int opcao = 0;
@@ -56,7 +68,10 @@ public class Menu {
     // ══════════════════════════════════════════
 
     /**
-     * Faz login de motorista ou passageiro e abre o menu correto.
+     * Faz login de motorista ou passageiro verificando email e senha.
+     *
+     * O método lê o tipo de conta, procura o usuário na lista apropriada
+     * e, em caso de sucesso, redireciona para o menu específico daquele tipo.
      */
     private void fluxoLogin() {
         System.out.println("\n=== Login ===");
@@ -111,6 +126,9 @@ public class Menu {
 
     /**
      * Lê dados do usuário e cria motorista ou passageiro novo.
+     *
+     * O cadastro utiliza a classe Validador para garantir que os campos
+     * atendam critérios mínimos antes de adicionar o usuário ao sistema.
      */
     private void fluxoCadastro() {
         System.out.println("\n=== Cadastro de Usuário ===");
@@ -147,6 +165,9 @@ public class Menu {
 
     /**
      * Verifica se o email já foi usado por qualquer usuário no sistema.
+     *
+     * Isso evita duplicidade de contas e garante que cada usuário seja
+     * identificado de forma única pelo email.
      */
     private boolean emailJaCadastrado(String email) {
         for (Motorista m : motoristas) {

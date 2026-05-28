@@ -1,24 +1,39 @@
 import java.util.ArrayList;
 
+/**
+ *  * Henrique Haramaki Mataveli RA:10752924 Moabe Guedes RA:10748053
+ * Representa uma viagem compartilhada conduzida por um motorista.
+ *
+ * A viagem mantém informações de trajeto, capacidade, status, reservas e avaliações.
+ * Ela também controla a aceitação de solicitações e registra quem já avaliou a viagem.
+ */
 public class Viagem {
 
-    // Representa uma viagem com trajeto, reservas, status e avaliações.
+    // Motorista responsável pela viagem.
     private Motorista motorista;
+    // Trajeto completo da viagem incluindo partida, paradas e destino.
     private ArrayList<Local> trajeto;
+    // Capacidade total e vagas atualmente disponíveis.
     private int lugaresTotais;
     private int lugaresDisponiveis;
+    // Reservas associadas à viagem, pendentes ou confirmadas.
     private ArrayList<Reserva> reservas;
+    // Status da viagem: "agendada" ou "concluida".
     private String status;
+    // Controla se a viagem aceita novas solicitações de passageiros.
     private boolean aceitaPassageiros;
 
-    // Rastreia quem já avaliou esta viagem (passageiros → motorista)
+    // Rastreia quais usuários já avaliaram o motorista nesta viagem.
     private ArrayList<Usuario> jaAvaliaram = new ArrayList<>();
 
-    // Rastreia quais passageiros já foram avaliados pelo motorista nesta viagem
+    // Rastreia quais passageiros já foram avaliados pelo motorista nesta viagem.
     private ArrayList<String> emailsPassageirosAvaliados = new ArrayList<>();
 
     /**
      * Cria viagem agendada definindo trajeto, número de lugares e se aceita novas solicitações.
+     *
+     * Por padrão, a viagem inicia no status "agendada" e só muda para "concluida"
+     * quando o motorista chama o método concluir().
      */
     public Viagem(Motorista motorista, ArrayList<Local> trajeto, int lugares, boolean aceitaPassageiros) {
         this.motorista          = motorista;
@@ -34,6 +49,15 @@ public class Viagem {
     //  VERIFICAÇÃO DE ATENDIMENTO
     // ─────────────────────────────────────────
 
+    /**
+     * Verifica se a viagem pode atender o passageiro entre origem e destino.
+     *
+     * A viagem só pode atender se:
+     * - houver vagas disponíveis,
+     * - existir um ponto do trajeto próximo à origem,
+     * - existir um ponto do trajeto próximo ao destino,
+     * - o ponto de embarque aparecer antes do ponto de desembarque.
+     */
     public boolean podeAtenderPassageiro(Local origem, Local destino) {
         if (lugaresDisponiveis <= 0) return false;
 
@@ -53,6 +77,12 @@ public class Viagem {
         return idxEmbarque != -1 && idxDesembarque != -1 && idxEmbarque < idxDesembarque;
     }
 
+    /**
+     * Retorna o ponto do trajeto que está mais próximo de um local informado.
+     *
+     * Este cálculo é usado para indicar o ponto de embarque e desembarque
+     * mais conveniente para o passageiro.
+     */
     public Local pontoMaisProximo(Local local) {
         Local melhor    = trajeto.get(0);
         double menorDist = trajeto.get(0).distancia(local);
@@ -74,7 +104,9 @@ public class Viagem {
 
     /**
      * Adiciona uma reserva já confirmada e ocupa um lugar no veículo.
-     * Usado na inicialização de dados simulados em Main.java.
+     *
+     * Este método é utilizado principalmente pela inicialização de dados
+     * para simular reservas que já estão confirmadas antes do início do sistema.
      */
     public void adicionarReserva(Reserva reserva) {
         reservas.add(reserva);
@@ -82,9 +114,10 @@ public class Viagem {
     }
 
     /**
-     * Registra uma SOLICITAÇÃO PENDENTE de passageiro.
-     * Não ocupa lugar — o lugar só é reservado quando o motorista aceitar.
-     * Também adiciona a reserva à lista do passageiro para que ele acompanhe o status.
+     * Registra uma solicitação pendente de passageiro.
+     *
+     * A solicitação fica no status "pendente" até o motorista confirmar ou recusar.
+     * O lugar no veículo não é decrementado neste momento.
      */
     public Reserva solicitarReserva(Usuario passageiro, Local embarque, Local desembarque) {
         Reserva reserva = new Reserva(passageiro, this, embarque, desembarque, "pendente");
@@ -94,9 +127,10 @@ public class Viagem {
     }
 
     /**
-     * Motorista ACEITA uma solicitação pendente.
-     * Confirma a reserva e desconta um lugar disponível.
-     * Retorna false se não houver mais vagas.
+     * Motorista aceita uma solicitação pendente.
+     *
+     * A reserva passa para o status "confirmada" e um lugar disponível é decrementado.
+     * Retorna false se o veículo já estiver sem vagas.
      */
     public boolean aceitarSolicitacao(Reserva reserva) {
         if (lugaresDisponiveis <= 0) {
@@ -109,7 +143,10 @@ public class Viagem {
     }
 
     /**
-     * Motorista RECUSA uma solicitação pendente.
+     * Motorista recusa uma solicitação pendente.
+     *
+     * A reserva mantêm o status apropriado para que o passageiro possa acompanhar
+     * o resultado da sua solicitação.
      */
     public void recusarSolicitacao(Reserva reserva) {
         reserva.recusar();
@@ -128,6 +165,12 @@ public class Viagem {
     //  AVALIAÇÕES — passageiro avalia motorista
     // ─────────────────────────────────────────
 
+    /**
+     * Registra avaliação de passageiro para motorista.
+     *
+     * Adiciona o usuário que já avaliou ao controle local e repassa a avaliação
+     * para o perfil do usuário avaliado.
+     */
     public void registrarAvaliacao(Avaliacao avaliacao) {
         jaAvaliaram.add(avaliacao.getAvaliador());
         avaliacao.getAvaliado().receberAvaliacao(avaliacao);
@@ -146,7 +189,9 @@ public class Viagem {
 
     /**
      * Registra avaliação do motorista sobre um passageiro desta viagem.
-     * Controle separado para não interferir com as avaliações de passageiros.
+     *
+     * Este controle é separado para evitar confundir avaliações de motorista
+     * com avaliações de passageiro sobre motorista.
      */
     public void registrarAvaliacaoPassageiro(Avaliacao avaliacao) {
         emailsPassageirosAvaliados.add(avaliacao.getAvaliado().getEmail());
