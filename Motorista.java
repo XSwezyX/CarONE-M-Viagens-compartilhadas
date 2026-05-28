@@ -3,9 +3,13 @@ import java.util.Scanner;
 
 public class Motorista extends Usuario {
 
+    // Motorista pode cadastrar viagens, responder solicitações e avaliar passageiros.
     private String modeloVeiculo;
     private ArrayList<Viagem> viagens = new ArrayList<>();
 
+    /**
+     * Cria motorista com dados pessoais e modelo do veículo.
+     */
     public Motorista(String nome, String email, String telefone, String senha,
                      String endereco, String modeloVeiculo) {
         super(nome, email, telefone, senha, endereco);
@@ -347,6 +351,10 @@ public class Motorista extends Usuario {
     @Override
     public ArrayList<Viagem> getViagens() { return viagens; }
 
+    /**
+     * Registra viagem na lista de viagens do motorista.
+     */
     public void adicionarViagem(Viagem v)  { viagens.add(v); }
+
     public String getModeloVeiculo()       { return modeloVeiculo; }
 }

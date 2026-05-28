@@ -2,6 +2,7 @@ import java.util.ArrayList;
 
 public abstract class Usuario {
 
+    // Dados básicos e históricos compartilhados por motorista e passageiro.
     protected String nome;
     protected String email;
     protected String telefone;
@@ -10,6 +11,9 @@ public abstract class Usuario {
     protected ArrayList<Avaliacao> avaliacoesRecebidas = new ArrayList<>();
     protected ArrayList<Reserva>   reservas            = new ArrayList<>();
 
+    /**
+     * Cria usuário e valida campos essenciais.
+     */
     public Usuario(String nome, String email, String telefone, String senha, String endereco) {
         if (nome != null && !nome.isEmpty() && nome.length() >= 3) {
             this.nome = nome;
@@ -28,11 +32,24 @@ public abstract class Usuario {
         }
     }
 
+    /**
+     * Indica se o usuário é motorista (sobrescrito em Motorista).
+     */
     public boolean ehMotorista() { return false; }
 
+    /**
+     * Adiciona avaliação recebida ao histórico do usuário.
+     */
     public void receberAvaliacao(Avaliacao a) { avaliacoesRecebidas.add(a); }
+
+    /**
+     * Adiciona reserva ao histórico do usuário.
+     */
     public void adicionarReserva(Reserva r)   { reservas.add(r); }
 
+    /**
+     * Calcula a média das avaliações recebidas.
+     */
     public double getMediaAvaliacoes() {
         if (avaliacoesRecebidas.isEmpty()) return 0.0;
         double soma = 0;
@@ -40,10 +57,16 @@ public abstract class Usuario {
         return soma / avaliacoesRecebidas.size();
     }
 
+    /**
+     * Verifica se a senha informada coincide com a senha cadastra.
+     */
     public boolean verificarSenha(String tentativa) {
         return this.senha.equals(tentativa);
     }
 
+    /**
+     * Retorna viagens do usuário; usado por Motorista.
+     */
     public ArrayList<Viagem> getViagens() {
         return new ArrayList<>();
     }

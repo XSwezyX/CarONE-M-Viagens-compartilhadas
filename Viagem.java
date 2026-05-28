@@ -2,6 +2,7 @@ import java.util.ArrayList;
 
 public class Viagem {
 
+    // Representa uma viagem com trajeto, reservas, status e avaliações.
     private Motorista motorista;
     private ArrayList<Local> trajeto;
     private int lugaresTotais;
@@ -16,6 +17,9 @@ public class Viagem {
     // Rastreia quais passageiros já foram avaliados pelo motorista nesta viagem
     private ArrayList<String> emailsPassageirosAvaliados = new ArrayList<>();
 
+    /**
+     * Cria viagem agendada definindo trajeto, número de lugares e se aceita novas solicitações.
+     */
     public Viagem(Motorista motorista, ArrayList<Local> trajeto, int lugares, boolean aceitaPassageiros) {
         this.motorista          = motorista;
         this.trajeto            = trajeto;

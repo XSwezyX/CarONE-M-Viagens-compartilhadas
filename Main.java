@@ -2,6 +2,9 @@ import java.util.ArrayList;
 
 public class Main {
 
+    /**
+     * Ponto de entrada do sistema, inicializa dados e inicia o menu.
+     */
     public static void main(String[] args) {
         ArrayList<Motorista>  motoristas  = new ArrayList<>();
         ArrayList<Passageiro> passageiros = new ArrayList<>();
@@ -16,6 +19,9 @@ public class Main {
         menu.iniciar();
     }
 
+    /**
+     * Cria locais fixos usados na simulação inicial.
+     */
     private static void inicializarLocais(ArrayList<Local> locais) {
         locais.add(new Local("Paulista",      "Av. Paulista, 900",        0,   0));
         locais.add(new Local("Pinheiros",     "Largo da Batata",         -5,   2));
@@ -29,6 +35,9 @@ public class Main {
         locais.add(new Local("São Bernardo",  "Av. Kennedy, 200",         6, -12));
     }
 
+    /**
+     * Cria usuários, viagens, reservas e avaliações de exemplo.
+     */
     private static void inicializarDados(ArrayList<Motorista>  motoristas,
                                          ArrayList<Passageiro> passageiros,
                                          ArrayList<Local>      locais,

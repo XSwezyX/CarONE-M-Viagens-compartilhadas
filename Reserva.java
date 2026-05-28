@@ -1,5 +1,6 @@
 public class Reserva {
 
+    // Reserva de passageiro em viagem, com pontos e situação atual.
     private Usuario passageiro;
     private Local pontoEmbarque;
     private Local pontoDesembarque;
@@ -26,26 +27,36 @@ public class Reserva {
         this.status           = status;
     }
 
-    /** Motorista aceita a solicitação. */
+    /**
+     * Marca a reserva como confirmada.
+     */
     public void confirmar() {
         this.status = "confirmada";
     }
 
-    /** Motorista recusa a solicitação. */
+    /**
+     * Marca a reserva como recusada.
+     */
     public void recusar() {
         this.status = "recusada";
     }
 
-    public boolean isConfirmada() { return status.equals("confirmada"); }
+    // Consultas de status da reserva.
+    public boolean isConfirmada() { return status.equals("confirmada"); 
+    }
     public boolean isPendente()   { return status.equals("pendente");   }
     public boolean isRecusada()   { return status.equals("recusada");   }
 
+    // Getters retornam os dados desta reserva.
     public Usuario getPassageiro()      { return passageiro; }
     public Local getPontoEmbarque()     { return pontoEmbarque; }
     public Local getPontoDesembarque()  { return pontoDesembarque; }
     public String getStatus()           { return status; }
     public Viagem getViagem()           { return viagem; }
 
+    /**
+     * Retorna resumo da reserva para exibição no console.
+     */
     @Override
     public String toString() {
         return passageiro.getNome()

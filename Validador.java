@@ -2,6 +2,8 @@ import java.util.Scanner;
 
 public class Validador {
 
+    // Validador de campos do usuário usado durante cadastro.
+
     public static String validarNome(Scanner scanner) {
 
         String nome;
@@ -23,6 +25,9 @@ public class Validador {
         return nome;
     }
 
+    /**
+     * Lê email até encontrar um formato mínimo válido.
+     */
     public static String validarEmail(Scanner scanner) {
 
         String email;
@@ -46,6 +51,9 @@ public class Validador {
         return email;
     }
 
+    /**
+     * Lê telefone até que seja considerado válido.
+     */
     public static String validarTelefone(Scanner scanner) {
 
         String telefone;
@@ -69,6 +77,9 @@ public class Validador {
         return telefone;
     }
 
+    /**
+     * Lê senha e valida tamanho mínimo.
+     */
     public static String validarSenha(Scanner scanner) {
 
         String senha;
@@ -90,6 +101,9 @@ public class Validador {
         return senha;
     }
 
+    /**
+     * Lê endereço até obter uma string não vazia e com tamanho mínimo.
+     */
     public static String validarEndereco(Scanner scanner) {
 
         String endereco;
@@ -111,6 +125,9 @@ public class Validador {
         return endereco;
     }
 
+    /**
+     * Lê o modelo do veículo para cadastro de motorista.
+     */
     public static String validarModeloVeiculo(Scanner scanner) {
 
         String modelo;

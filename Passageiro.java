@@ -3,6 +3,7 @@ import java.util.Scanner;
 
 public class Passageiro extends Usuario {
 
+    // Passageiro que busca e reserva viagens, além de avaliar motoristas.
     public Passageiro(String nome, String email, String telefone, String senha, String endereco) {
         super(nome, email, telefone, senha, endereco);
     }
@@ -11,6 +12,9 @@ public class Passageiro extends Usuario {
     //  VER RESERVAS
     // ─────────────────────────────────────────
 
+    /**
+     * Exibe todas as reservas do passageiro com situação atual.
+     */
     public void verReservas(Passageiro passageiro) {
         System.out.println("\n=== Minhas Reservas ===");
 
@@ -29,6 +33,9 @@ public class Passageiro extends Usuario {
     //  BUSCAR E PEDIR CARONA
     // ─────────────────────────────────────────
 
+    /**
+     * Busca viagens disponíveis para origem e destino indicados, e envia solicitação.
+     */
     public void buscarEPedirCarona(Passageiro passageiro, Scanner scanner,
                                    ArrayList<Local> locais, ArrayList<Viagem> viagens) {
         System.out.println("\n=== Buscar Carona ===");
@@ -101,6 +108,9 @@ public class Passageiro extends Usuario {
     //  AVALIAR VIAGEM (passageiro avalia motorista)
     // ─────────────────────────────────────────
 
+    /**
+     * Permite que o passageiro avalie o motorista de uma viagem concluída.
+     */
     public void avaliarViagem(Passageiro passageiro, Scanner scanner,
                               ArrayList<Viagem> viagens, ArrayList<Avaliacao> avaliacoes) {
         System.out.println("\n=== Avaliar Viagem ===");

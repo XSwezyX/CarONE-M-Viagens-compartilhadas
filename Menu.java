@@ -27,6 +27,9 @@ public class Menu {
     //  MENU PRINCIPAL
     // ══════════════════════════════════════════
 
+    /**
+     * Exibe o menu principal e permite login ou cadastro.
+     */
     public void iniciar() {
         int opcao = 0;
         while (opcao != 3) {
@@ -52,6 +55,9 @@ public class Menu {
     //  LOGIN
     // ══════════════════════════════════════════
 
+    /**
+     * Faz login de motorista ou passageiro e abre o menu correto.
+     */
     private void fluxoLogin() {
         System.out.println("\n=== Login ===");
         System.out.println("Tipo de conta: (1 - Motorista / 2 - Passageiro)");
@@ -103,6 +109,9 @@ public class Menu {
     //  CADASTRO
     // ══════════════════════════════════════════
 
+    /**
+     * Lê dados do usuário e cria motorista ou passageiro novo.
+     */
     private void fluxoCadastro() {
         System.out.println("\n=== Cadastro de Usuário ===");
 
@@ -136,6 +145,9 @@ public class Menu {
         System.out.println("Usuário cadastrado com sucesso!");
     }
 
+    /**
+     * Verifica se o email já foi usado por qualquer usuário no sistema.
+     */
     private boolean emailJaCadastrado(String email) {
         for (Motorista m : motoristas) {
             if (m.getEmail().equals(email)) return true;
@@ -150,6 +162,9 @@ public class Menu {
     //  MENU MOTORISTA
     // ══════════════════════════════════════════
 
+    /**
+     * Menu de opções específico para motorista.
+     */
     private void menuMotorista(Motorista motorista) {
         int opcao = 0;
         while (opcao != 7) {
@@ -182,6 +197,9 @@ public class Menu {
     //  MENU PASSAGEIRO
     // ══════════════════════════════════════════
 
+    /**
+     * Menu de opções específico para passageiro.
+     */
     private void menuPassageiro(Passageiro passageiro) {
         int opcao = 0;
         while (opcao != 4) {
